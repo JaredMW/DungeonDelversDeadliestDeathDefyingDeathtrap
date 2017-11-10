@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 
 public class Timer : MonoBehaviour {
-private static int count;
+private static float count=0;
+   public bool iscounting = false;
 public Text texting;
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,10 @@ public Text texting;
 	
 	// Update is called once per frame
 	void Update () {
-        count++;
+        if (iscounting)
+        {
+            count += Time.deltaTime;
+        }
         texting.text = count.ToString();
 	}
 
