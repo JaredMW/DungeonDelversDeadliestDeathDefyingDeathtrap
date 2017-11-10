@@ -9,6 +9,7 @@ private static int count;
 public Text texting;
 	// Use this for initialization
 	void Start () {
+        Debug.Log("Timer Start");
         //count = 0;
 	}
 	
@@ -18,7 +19,7 @@ public Text texting;
         texting.text = count.ToString();
 	}
 
-    void onGUI()
+    public void clicky()
     {
 
     }
