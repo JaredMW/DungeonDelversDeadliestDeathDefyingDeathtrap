@@ -13,7 +13,7 @@ public class StartButton : MonoBehaviour {
     public void ScanScreen()
     {
         Debug.Log("Started");
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Scanning");
     }
     public void Minigame1()
     {
