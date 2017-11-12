@@ -33,8 +33,8 @@ public class MiniGame1Manager : Gamemanager {
     void Update () {
         if (Timer.count > 5)
         {
-            arena.gameObject.transform.localScale *= .99999999f;
-            radius *= .99999999f;
+            arena.gameObject.transform.localScale *= .999f;
+            radius *= .999f;
         }
         for (int i=0;i<players.Count;i++)
         {
@@ -57,9 +57,11 @@ public class MiniGame1Manager : Gamemanager {
          // }
         }
 
-        if (players.Count == 0)
+        if (players.Count == 1)
         {
             GetComponent<Timer>().iscounting = false ;
+            arena.gameObject.transform.localScale /=.999f;
+            radius /= .999f;
         }
         }
 
