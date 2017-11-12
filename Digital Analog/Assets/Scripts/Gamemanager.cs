@@ -25,6 +25,7 @@ public class Gamemanager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(false);
         arena.GetComponent<SpriteRenderer>().enabled = false;
         foreach(GameObject player in players)

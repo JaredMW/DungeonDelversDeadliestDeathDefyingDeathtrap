@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniGame1manager : Gamemanager {
+public class MiniGame1Manager : Gamemanager {
     
     //public Button button;            // Push to start
     //public Text text1, text2, text3; // Menu text
@@ -31,15 +31,25 @@ public class MiniGame1manager : Gamemanager {
 	
 	// Update is called once per frame
 	void Update () {
-        foreach (GameObject player in players)
+        for (int i=0;i<players.Count;i++)
         {
-            if (Vector3.Distance(player.transform.position, arena.transform.position) > 7.15f)
+            float distance = 0;
+
+            distance = Mathf.Sqrt((Mathf.Pow(players[i].transform.position.x- arena.transform.position.x, 2) + Mathf.Pow(players[i].transform.position.y - arena.transform.position.y, 2)));
+            if (distance > 7.15f)
             {
-                player.SetActive(false);
-                player.GetComponent<Movement>().enabled = false;
-                player.GetComponentInChildren<SpriteRenderer>().enabled = false;
-                players.Remove(player);
+                players[i].SetActive(false);
+                players[i].GetComponent<Movement>().enabled = false;
+                players[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
+                players.Remove(players[i]);
+                Debug.Log("player removed");
+                
             }
+            Debug.Log(distance);
+         // foreach (GameObject player2 in players)
+         // {
+         //     player.GetComponent<Movement>().Iscolliding(player2);
+         // }
         }
 
         if (players.Count == 0)
