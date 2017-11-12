@@ -26,7 +26,13 @@ public class Movement : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.W))
             {
-                speed += speedIncrement * Time.deltaTime;
+                position.y += .1f;
+               // speed += speedIncrement * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                position.y -= .1f;
+                // speed += speedIncrement * Time.deltaTime;
             }
             else if (useSlowdown)
             {
@@ -44,11 +50,13 @@ public class Movement : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.D))
             {
-                angle -= turnspeed * Time.deltaTime;
+                position.x += .1f;
+                // angle -= turnspeed * Time.deltaTime;
             }
-            else if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
-                angle += turnspeed * Time.deltaTime;
+                position.x -= .1f;
+                //angle += turnspeed * Time.deltaTime;
             }
 
         }
@@ -56,7 +64,13 @@ public class Movement : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                speed += speedIncrement * Time.deltaTime;
+                position.y += .1f;
+                // speed += speedIncrement * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                position.y -= .1f;
+                // speed += speedIncrement * Time.deltaTime;
             }
             else if (useSlowdown)
             {
@@ -74,11 +88,13 @@ public class Movement : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                angle -= turnspeed * Time.deltaTime;
+                position.x += .1f;
+                // angle -= turnspeed * Time.deltaTime;
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                angle += turnspeed * Time.deltaTime;
+                position.x -= .1f;
+                //angle += turnspeed * Time.deltaTime;
             }
 
         }

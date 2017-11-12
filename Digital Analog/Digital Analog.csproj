@@ -79,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Gamemanager.cs" />
-    <Compile Include="Assets\Scripts\MiniGame1manager.cs" />
+    <Compile Include="Assets\Scripts\MiniGame1Manager.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
     <Compile Include="Assets\Scripts\StartButton.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
