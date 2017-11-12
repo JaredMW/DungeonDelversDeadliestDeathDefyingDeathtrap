@@ -12,7 +12,7 @@ public class Gamemanager : MonoBehaviour {
     
     public Button button;            // Push to start
     public Text text1, text2, text3; // Menu text
-    
+    public Image instructions;
     public MiniGame currentMinigame;
     
     public List<GameObject> players;
@@ -27,6 +27,7 @@ public class Gamemanager : MonoBehaviour {
     void Start () {
         text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(false);
+        instructions.gameObject.SetActive(false);
         arena.GetComponent<SpriteRenderer>().enabled = false;
         foreach(GameObject player in players)
         {
@@ -61,13 +62,7 @@ public class Gamemanager : MonoBehaviour {
         text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(true);
         this.GetComponent<Timer>().iscounting = true;
-        foreach (GameObject player in players)
-        {
-            player.SetActive(true);
-            player.GetComponent<Movement>().enabled = true;
-            player.GetComponentInChildren<SpriteRenderer>().enabled = true;
-
-        }
+       
         // Instantiate player prefabs at their corresponding start positions
 
 

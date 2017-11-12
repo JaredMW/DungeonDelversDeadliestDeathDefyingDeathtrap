@@ -31,7 +31,26 @@ public class MiniGame1Manager : Gamemanager {
 
     // Update is called once per frame
     void Update () {
-        if (Timer.count > 5)
+        if (Timer.count == 0)
+        {
+            instructions.gameObject.SetActive(false);
+        }
+        else if (Timer.count < 5)
+        {
+            instructions.gameObject.SetActive(true);
+        }
+        else if (Timer.count > 5)
+        {
+            instructions.gameObject.SetActive(false);
+            foreach (GameObject player in players)
+            {
+                player.SetActive(true);
+                player.GetComponent<Movement>().enabled = true;
+                player.GetComponentInChildren<SpriteRenderer>().enabled = true;
+
+            }
+        }
+        if (Timer.count > 10)
         {
             arena.gameObject.transform.localScale *= .999f;
             radius *= .999f;
@@ -62,6 +81,7 @@ public class MiniGame1Manager : Gamemanager {
             GetComponent<Timer>().iscounting = false ;
             arena.gameObject.transform.localScale /=.999f;
             radius /= .999f;
+
         }
         }
 
