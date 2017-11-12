@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 
 public class Timer : MonoBehaviour {
-private static float count=0;
-   public bool iscounting = false;
+    public static float count=0;
+  
+    public bool iscounting = false;
 public Text texting;
 	// Use this for initialization
 	void Start () {
@@ -19,12 +20,8 @@ public Text texting;
         if (iscounting)
         {
             count += Time.deltaTime;
+      
         }
         texting.text = count.ToString();
 	}
-
-    public void clicky()
-    {
-
-    }
 }

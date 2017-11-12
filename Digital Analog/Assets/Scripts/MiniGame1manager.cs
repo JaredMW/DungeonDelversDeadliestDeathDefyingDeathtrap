@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MiniGame1Manager : Gamemanager {
-    
+    float radius = 7.15f;
     //public Button button;            // Push to start
     //public Text text1, text2, text3; // Menu text
-    
+
     //public MiniGame currentMinigame;
-    
+
     //public List<GameObject> players;
-    
+
     //public int numPlayers;
 
     //public List<GameObject> arenaPrefabs;   // Minigame arena prefabs
@@ -20,23 +20,28 @@ public class MiniGame1Manager : Gamemanager {
 
     // Use this for initialization
     //void Start () {
-        //arena.GetComponent<SpriteRenderer>().enabled = false;
-        //foreach(GameObject player in players)
-        //{
-        //    player.SetActive(false);
-        //    player.GetComponent<Movement>().enabled = false;
-        //    player.GetComponentInChildren<SpriteRenderer>().enabled = false;
-        //}
-//	}
-	
-	// Update is called once per frame
-	void Update () {
+    //arena.GetComponent<SpriteRenderer>().enabled = false;
+    //foreach(GameObject player in players)
+    //{
+    //    player.SetActive(false);
+    //    player.GetComponent<Movement>().enabled = false;
+    //    player.GetComponentInChildren<SpriteRenderer>().enabled = false;
+    //}
+    //	}
+
+    // Update is called once per frame
+    void Update () {
+        if (Timer.count > 5)
+        {
+            arena.gameObject.transform.localScale *= .99999999f;
+            radius *= .99999999f;
+        }
         for (int i=0;i<players.Count;i++)
         {
             float distance = 0;
 
             distance = Mathf.Sqrt((Mathf.Pow(players[i].transform.position.x- arena.transform.position.x, 2) + Mathf.Pow(players[i].transform.position.y - arena.transform.position.y, 2)));
-            if (distance > 7.15f)
+            if (distance >radius)
             {
                 players[i].SetActive(false);
                 players[i].GetComponent<Movement>().enabled = false;
@@ -45,7 +50,7 @@ public class MiniGame1Manager : Gamemanager {
                 Debug.Log("player removed");
                 
             }
-            Debug.Log(distance);
+            //Debug.Log(distance);
          // foreach (GameObject player2 in players)
          // {
          //     player.GetComponent<Movement>().Iscolliding(player2);
