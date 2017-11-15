@@ -81,7 +81,7 @@ public class Movement : MonoBehaviour {
         }
         if (gameObject.tag == "Player3")
         {
-            Debug.Log(Input.GetJoystickNames());
+            //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
             float x = -(Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f) / 3.25f;
             float y = -(Input.GetAxis("Vertical") * Time.deltaTime * 150.0f) / 3.25f;
@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour {
         }
         if (gameObject.tag == "Player4")
         {
-            Debug.Log(Input.GetJoystickNames());
+            //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
             float x = -(Input.GetAxis("Horizontal2") * Time.deltaTime * 150.0f) / 3.25f;
             float y = -(Input.GetAxis("Vertical2") * Time.deltaTime * 150.0f) / 3.25f;
