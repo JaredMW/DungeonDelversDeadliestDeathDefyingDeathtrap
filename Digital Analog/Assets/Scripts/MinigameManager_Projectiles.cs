@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MiniGame1Manager : Gamemanager {
+public class MinigameManager_Projectiles : Gamemanager {
     float radius = 7.15f;
     bool play = true;
     float endtimer = 5;
