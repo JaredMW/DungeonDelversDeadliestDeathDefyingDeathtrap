@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour {
     public Vector3 velocity = new Vector3(0.0f, 0.0f,0.0f);
 
     public float speed = 0.0f;
-    public float speedIncrement = 2.0f;
+    public float speedIncrement = .75f;
     public float maxSpeed = 12.0f;
     public float slowDown = 0.97f;
     public float angle;
@@ -15,70 +15,73 @@ public class Movement : MonoBehaviour {
     public bool iscolliding = false;
   
     void Start () {
-        
         transform.position = position;
         angle = transform.rotation.z;
 	}
 	
 	
 	void Update () {
-        
+
         if (gameObject.tag == "Player1")
         {
             if (Input.GetKey(KeyCode.W))
             {
-                velocity.y += .75f;
+                velocity.y += speedIncrement;
                // position.y += .1f;
                // speed += speedIncrement * Time.deltaTime;
             }
+
             if (Input.GetKey(KeyCode.S))
             {
-                velocity.y -= .75f;
+                velocity.y -= speedIncrement;
                // position.y -= .1f;
                 // speed += speedIncrement * Time.deltaTime;
             }
            
             if (Input.GetKey(KeyCode.D))
             {
-                velocity.x += .75f;
+                velocity.x += speedIncrement;
                // position.x += .1f;
                 // angle -= turnspeed * Time.deltaTime;
             }
+
             if (Input.GetKey(KeyCode.A))
             {
-                velocity.x -= .75f;
+                velocity.x -= speedIncrement;
                // position.x -= .1f;
-                //angle += turnspeed * Time.deltaTime;
-            }
-          
-
-        }
-        if (gameObject.tag == "Player2")
-        {
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-               velocity.y += .75f;
-                // speed += speedIncrement * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-               velocity.y -= .75f;
-                // speed += speedIncrement * Time.deltaTime;
-            }
-           
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                velocity.x += .75f;
-                // angle -= turnspeed * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                velocity.x -= .75f;
                 //angle += turnspeed * Time.deltaTime;
             }
             
 
         }
+
+        if (gameObject.tag == "Player2")
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+               velocity.y += speedIncrement;
+                // speed += speedIncrement * Time.deltaTime;
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+               velocity.y -= speedIncrement;
+                // speed += speedIncrement * Time.deltaTime;
+            }
+           
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                velocity.x += speedIncrement;
+                // angle -= turnspeed * Time.deltaTime;
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                velocity.x -= speedIncrement;
+                //angle += turnspeed * Time.deltaTime;
+            }
+        }
+
         if (gameObject.tag == "Player3")
         {
             //Debug.Log(Input.GetJoystickNames());
@@ -89,6 +92,7 @@ public class Movement : MonoBehaviour {
             velocity.x += x;
             velocity.y += y;
         }
+
         if (gameObject.tag == "Player4")
         {
             //Debug.Log(Input.GetJoystickNames());
@@ -99,6 +103,7 @@ public class Movement : MonoBehaviour {
             velocity.x += x;
             velocity.y += y;
         }
+
         if (useSlowdown)
         {
             velocity *= slowDown;
@@ -113,29 +118,26 @@ public class Movement : MonoBehaviour {
             velocity.y = 0;
         }
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
-            position += velocity * Time.deltaTime;
+        position += velocity * Time.deltaTime;
            
-            transform.position = position;
+        transform.position = position;
 
      
 
 
     }
+
     public Vector3 GetDirection()
     {
         return (transform.rotation*velocity);
     }
-    void OnCollisionEnter2D(Collision2D coll)
+
+    void OnCollisionEnter2D(Collision2D other)
     {
-        coll.gameObject.GetComponent<Movement>().position += velocity * Time.deltaTime*5;
+        other.gameObject.GetComponent<Movement>().position += velocity * Time.deltaTime * 5;
         velocity *= -1;
         position += velocity * Time.deltaTime * 5;
-        coll.gameObject.transform.position = coll.gameObject.GetComponent<Movement>().position;
+        other.gameObject.transform.position = other.gameObject.GetComponent<Movement>().position;
         transform.position = position;
-        
-        
-      
-         
-        
     }
 }
