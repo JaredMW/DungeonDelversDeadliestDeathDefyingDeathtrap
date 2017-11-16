@@ -5,19 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour {
 
-	 public void StartGame()
+	public void StartGame()
     {
         Debug.Log("Started");
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("MainMenu");
     }
     public void ScanScreen()
     {
         Debug.Log("Started");
         SceneManager.LoadScene("Scanning");
     }
-    public void Minigame1()
+    public void StartMinigame_Projectiles()
     {
+        //Gamemanager.currentMinigame = MiniGame.Projectiles;
         Debug.Log("Started");
-        SceneManager.LoadScene("MiniGame1");
+        SceneManager.LoadScene("Minigame_Projectiles");
     }
 }
