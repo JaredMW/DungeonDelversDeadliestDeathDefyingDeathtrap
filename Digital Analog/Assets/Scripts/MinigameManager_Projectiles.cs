@@ -4,16 +4,28 @@ using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MinigameManager_Projectiles : Gamemanager {
+public class MiniGameManager_Projectiles : Gamemanager {
     
     // Instances
     float radius = 7.15f;
-    bool play = true;
+    bool play = false;
+    bool gameOver = false;
     public float arenaShrinkRate = .9987f;
+
+
+    protected override void Start()
+    {
+        base.Start();
+        ScreenManager.CalculateScreen();
+    }
 
 
     // Update is called once per frame
     void Update () {
+        if (!play && !gameOver && playercountstart >= 1)
+        {
+            startbutton.interactable = true;
+        }
         if (Timer.count == 0)
         {
             //instructions.gameObject.SetActive(false);
@@ -29,11 +41,11 @@ public class MinigameManager_Projectiles : Gamemanager {
             //instructions.gameObject.SetActive(false);
             objectiveScreen.gameObject.SetActive(false);
 
-            for (int i = 0; i < players.Count; i++)
+            for (int i = 0; i < currentPlayers.Count; i++)
             {
-                players[i].SetActive(true);
-                players[i].GetComponent<Movement>().enabled = true;
-                players[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
+                currentPlayers[i].SetActive(true);
+                currentPlayers[i].GetComponent<Movement>().enabled = true;
+                currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
             }
         }
         if (Timer.count > 8.5f && play)
@@ -41,39 +53,63 @@ public class MinigameManager_Projectiles : Gamemanager {
             arena.gameObject.transform.localScale *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
             radius *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
         }
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < currentPlayers.Count; i++)
         {
             float distance = 0;
 
-            distance = Mathf.Sqrt((Mathf.Pow(players[i].transform.position.x- arena.transform.position.x, 2)
-                + Mathf.Pow(players[i].transform.position.y - arena.transform.position.y, 2)));
+            distance = Mathf.Sqrt((Mathf.Pow(currentPlayers[i].transform.position.x- arena.transform.position.x, 2)
+                + Mathf.Pow(currentPlayers[i].transform.position.y - arena.transform.position.y, 2)));
 
             if (distance > radius)
             {
-                players[i].SetActive(false);
-                players[i].GetComponent<Movement>().enabled = false;
-                players[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
-                players.Remove(players[i]);
+                currentPlayers[i].SetActive(false);
+                currentPlayers[i].GetComponent<Movement>().enabled = false;
+                currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
+                currentPlayers.Remove(currentPlayers[i]);
             }
 
             //Debug.Log(distance);
-            //foreach (GameObject player2 in players)
+            //foreach (GameObject player2 in currentplayers)
             //{
             //    player.GetComponent<Movement>().Iscolliding(player2);
             //}
         }
+        
+        if (playercountstart <= 1)
+        {
+            if (currentPlayers.Count < 1 && play)
+            {
+                EndMinigame();
+                GameOverCountdown();
+            }
+            // Countdown until the next minigame or until 
+            else if (currentPlayers.Count < 1 && !play && gameOver)
+            {
+                GameOverCountdown();
+            }
+        }
+        else if (playercountstart > 1)
+        {
+            // End the minigame when 1 or less currentplayers are present
+            if (currentPlayers.Count <= 1 && play)
+            {
+                EndMinigame();
+                GameOverCountdown();
+            }
+            // Countdown until the next minigame or until 
+            else if (currentPlayers.Count <= 1 && !play && gameOver)
+            {
+                GameOverCountdown();
+            }
+        }
+    }
 
-        // End the minigame when 1 or less players are present
-        if (players.Count <= 1 && play)
-        {
-            EndMinigame();
-            GameOverCountdown();
-        }
-        // Countdown until the next minigame or until 
-        else if (players.Count <= 1 && !play)
-        {
-            GameOverCountdown();
-        }
+    protected override void StartMinigame()
+    {
+        base.StartMinigame();
+
+        play = true;
+        gameOver = false;
     }
 
     // End the projectiles minigame
@@ -82,6 +118,7 @@ public class MinigameManager_Projectiles : Gamemanager {
         base.EndMinigame();
 
         play = false;
+        gameOver = true;
         GetComponent<Timer>().iscounting = false;
         
         //endTimer = endTimer - .01f;
@@ -99,7 +136,7 @@ public class MinigameManager_Projectiles : Gamemanager {
         //text1.gameObject.SetActive(false);
         //text2.gameObject.SetActive(false);
         //text3.gameObject.SetActive(false);
-        //foreach (GameObject player in players)
+        //foreach (GameObject player in currentplayers)
         //{
         //    player.SetActive(true);
         //    player.GetComponent<Movement>().enabled = true;
