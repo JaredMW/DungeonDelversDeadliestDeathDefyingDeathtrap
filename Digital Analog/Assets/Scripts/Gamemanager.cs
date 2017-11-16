@@ -10,11 +10,12 @@ public enum MiniGame
 
 public class Gamemanager : MonoBehaviour {
     
-    public Button button;            // Push to start
-    public Text text1, text2, text3; // Menu text
+    public Button button, button1,button2,button3,button4;            // Push to start
+    public Text text1, text2, text3,text4; // Menu text
     public Image instructions;
     public MiniGame currentMinigame;
-    
+    public int playercountstart = 0;
+    public List<GameObject> currentplayers;
     public List<GameObject> players;
     
     public int numPlayers;
@@ -61,6 +62,11 @@ public class Gamemanager : MonoBehaviour {
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(true);
+        text4.gameObject.SetActive(false);
+        button1.gameObject.SetActive(false);
+        button2.gameObject.SetActive(false);
+        button3.gameObject.SetActive(false);
+        button4.gameObject.SetActive(false);
         this.GetComponent<Timer>().iscounting = true;
        
         // Instantiate player prefabs at their corresponding start positions
@@ -68,5 +74,26 @@ public class Gamemanager : MonoBehaviour {
 
         // Instantiate the arena corresponding with this minigame
 
+    }
+
+    public void AddPlayer1()
+    {
+        currentplayers.Add(players[0]);
+        playercountstart++;
+    }
+    public void AddPlayer2()
+    {
+        currentplayers.Add(players[1]);
+        playercountstart++;
+    }
+    public void AddPlayer3()
+    {
+        currentplayers.Add(players[3]);
+        playercountstart++;
+    }
+    public void AddPlayer4()
+    {
+        currentplayers.Add(players[3]);
+        playercountstart++;
     }
 }
