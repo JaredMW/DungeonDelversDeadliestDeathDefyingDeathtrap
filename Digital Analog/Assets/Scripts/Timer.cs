@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour {
     public static float count=0;
   
     public bool iscounting = false;
-public Text texting;
+    public Text texting;
 	// Use this for initialization
 	void Start () {
         Debug.Log("Timer Start");
@@ -22,6 +22,6 @@ public Text texting;
             count += Time.deltaTime;
       
         }
-        texting.text = count.ToString();
+        //texting.text = count.ToString();
 	}
 }

@@ -12,7 +12,6 @@ public class Movement : MonoBehaviour {
     public float angle;
     public float turnspeed;
     public bool useSlowdown = true;
-    public bool iscolliding = false;
   
     void Start () {
         
@@ -81,20 +80,21 @@ public class Movement : MonoBehaviour {
         }
         if (gameObject.tag == "Player3")
         {
-            Debug.Log(Input.GetJoystickNames());
+            //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
-            float x = -(Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f) / 3.25f;
-            float y = -(Input.GetAxis("Vertical") * Time.deltaTime * 150.0f) / 3.25f;
+            float x = Mathf.Clamp(-(Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
+            //float x = (Input.GetAxis("Hotizontal") != 0 ? Time.deltaTime * 1 : 0);
+            float y = Mathf.Clamp(-(Input.GetAxis("Vertical") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
             //gameObject.transform.Translate(x, y, 0);
             velocity.x += x;
             velocity.y += y;
         }
         if (gameObject.tag == "Player4")
         {
-            Debug.Log(Input.GetJoystickNames());
+            //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
-            float x = -(Input.GetAxis("Horizontal2") * Time.deltaTime * 150.0f) / 3.25f;
-            float y = -(Input.GetAxis("Vertical2") * Time.deltaTime * 150.0f) / 3.25f;
+            float x = Mathf.Clamp(-(Input.GetAxis("Horizontal2") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
+            float y = Mathf.Clamp(-(Input.GetAxis("Vertical2") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
             //gameObject.transform.Translate(x, y, 0);
             velocity.x += x;
             velocity.y += y;
