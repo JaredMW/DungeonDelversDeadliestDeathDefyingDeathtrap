@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(ProjectileSpawning))]
 
-public class MiniGameManager_Projectiles : Gamemanager {
+public class MinigameManager_Projectiles : Gamemanager {
     
     // Instances
-    float radius = 7.15f;
     bool play = false;
     bool gameOver = false;
     public float arenaShrinkRate = .9987f;
+    float radius = 7.15f;
 
     private ProjectileSpawning spawnManager;
 

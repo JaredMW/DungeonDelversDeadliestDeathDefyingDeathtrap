@@ -80,7 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Gamemanager.cs" />
     <Compile Include="Assets\Scripts\LavaBehavior.cs" />
-    <Compile Include="Assets\Scripts\MiniGameManager_Projectiles.cs" />
+    <Compile Include="Assets\Scripts\MinigameManager_Projectiles.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
     <Compile Include="Assets\Scripts\ProjectileBehavior.cs" />
     <Compile Include="Assets\Scripts\ProjectileSpawning.cs" />
