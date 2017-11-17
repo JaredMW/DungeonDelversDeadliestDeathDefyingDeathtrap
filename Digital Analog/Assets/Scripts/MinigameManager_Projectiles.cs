@@ -4,6 +4,8 @@ using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(ProjectileSpawning))]
+
 public class MiniGameManager_Projectiles : Gamemanager {
     
     // Instances
@@ -12,16 +14,25 @@ public class MiniGameManager_Projectiles : Gamemanager {
     bool gameOver = false;
     public float arenaShrinkRate = .9987f;
 
+    private ProjectileSpawning spawnManager;
+
+    public float Radius
+    {
+        get { return radius; }
+    }
+
 
     protected override void Start()
     {
         base.Start();
         ScreenManager.CalculateScreen();
+        spawnManager = GetComponent<ProjectileSpawning>();
     }
 
 
     // Update is called once per frame
     void Update () {
+        // After some players are selected to play, you can now select to start
         if (!play && !gameOver && playercountstart >= 1)
         {
             startbutton.interactable = true;
@@ -31,15 +42,20 @@ public class MiniGameManager_Projectiles : Gamemanager {
             //instructions.gameObject.SetActive(false);
             objectiveScreen.gameObject.SetActive(false);
         }
+
+        // Show instructions
         else if (Timer.count < 4)
         {
             //instructions.gameObject.SetActive(true);
             objectiveScreen.gameObject.SetActive(true);
         }
+
+        // Time to start the game
         else if (Timer.count >= 4 && play)
         {
             //instructions.gameObject.SetActive(false);
             objectiveScreen.gameObject.SetActive(false);
+            spawnManager.enabled = true;
 
             for (int i = 0; i < currentPlayers.Count; i++)
             {
@@ -48,6 +64,8 @@ public class MiniGameManager_Projectiles : Gamemanager {
                 currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
             }
         }
+
+        // Start shrinking arena
         if (Timer.count > 8.5f && play)
         {
             arena.gameObject.transform.localScale *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
@@ -110,6 +128,8 @@ public class MiniGameManager_Projectiles : Gamemanager {
 
         play = true;
         gameOver = false;
+
+
     }
 
     // End the projectiles minigame

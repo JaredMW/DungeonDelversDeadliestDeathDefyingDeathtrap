@@ -53,17 +53,17 @@ public class ScreenManager : MonoBehaviour
     {
         //Camera.main.rect = new Rect(viewPosX, viewPosY, viewWidth, viewHeight);
 
-        left = Camera.main.ViewportToWorldPoint(Vector3.zero).z
-            + Camera.main.transform.position.z;
-
-        right = Camera.main.ViewportToWorldPoint(Vector3.right).z
-            + Camera.main.transform.position.z;
-
-        top = Camera.main.ViewportToWorldPoint(Vector3.up).x
+        left = Camera.main.ViewportToWorldPoint(Vector3.zero).x
             + Camera.main.transform.position.x;
 
-        bottom = Camera.main.ViewportToWorldPoint(Vector3.zero).x
+        right = Camera.main.ViewportToWorldPoint(Vector3.right).x
             + Camera.main.transform.position.x;
+
+        top = Camera.main.ViewportToWorldPoint(Vector3.up).y
+            + Camera.main.transform.position.y;
+
+        bottom = Camera.main.ViewportToWorldPoint(Vector3.zero).y
+            + Camera.main.transform.position.y;
     }
 
     void Update()
@@ -73,18 +73,20 @@ public class ScreenManager : MonoBehaviour
 
     public static void CalculateScreen()
     {
-       // Camera.main.rect = new Rect(viewPosX, viewPosY, viewWidth, viewHeight);
+        // Camera.main.rect = new Rect(viewPosX, viewPosY, viewWidth, viewHeight);
 
-        left = Camera.main.ViewportToWorldPoint(Vector3.zero).z
-            + Camera.main.transform.position.z;
+        left = Camera.main.ViewportToWorldPoint(Vector3.zero).x
+            /*+ Camera.main.transform.position.x*/;
 
-        right = Camera.main.ViewportToWorldPoint(Vector3.right).z
-            + Camera.main.transform.position.z;
+        right = Camera.main.ViewportToWorldPoint(Vector3.right).x
+            /*+ Camera.main.transform.position.x*/;
 
-        top = Camera.main.ViewportToWorldPoint(Vector3.up).x
-            + Camera.main.transform.position.x;
+        top = Camera.main.ViewportToWorldPoint(Vector3.up).y
+            /*+ Camera.main.transform.position.y*/;
 
-        bottom = Camera.main.ViewportToWorldPoint(Vector3.zero).x
-            + Camera.main.transform.position.x;
+        bottom = Camera.main.ViewportToWorldPoint(Vector3.zero).y
+            /*+ Camera.main.transform.position.y*/;
+
+        Debug.Log("Left: " + left + "   Right: " + right + "   Top: " + top + "   Bottom: " + bottom);
     }
 }
