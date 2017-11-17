@@ -140,6 +140,8 @@ public class MiniGameManager_Projectiles : Gamemanager {
         play = false;
         gameOver = true;
         GetComponent<Timer>().iscounting = false;
+
+        spawnManager.enabled = false;
         
         //endTimer = endTimer - .01f;
         //if (endTimer <= 0)

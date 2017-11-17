@@ -12,6 +12,7 @@ public class ProjectileSpawning : MonoBehaviour {
     public GameObject projectilePrefab;
     public static List<GameObject> activeProjectiles;
     public float projectileSpeed = .5f;
+    public float speedVariation = 2.5f;
 
     public float arenaTargetPercentage = .25f;
     private MiniGameManager_Projectiles minigameManager;
@@ -46,6 +47,8 @@ public class ProjectileSpawning : MonoBehaviour {
             SpawnProjectile();
 
             spawnTimer *= .997f;
+
+            projectileSpeed += 1f;
         }
 	}
 
@@ -66,8 +69,8 @@ public class ProjectileSpawning : MonoBehaviour {
 
         Vector3 spawnLocation = new Vector3(spawnX, spawnY, -1);
 
-        float targetX = minigameManager.arena.transform.position.x + ((minigameManager.Radius * arenaTargetPercentage) * Random.Range(1, 3) * 2 - 3);
-        float targetY = minigameManager.arena.transform.position.y + ((minigameManager.Radius * arenaTargetPercentage) * Random.Range(1, 3) * 2 - 3);
+        float targetX = minigameManager.arena.transform.position.x + ((minigameManager.Radius * arenaTargetPercentage) * (Random.Range(1, 3) * 2 - 3));
+        float targetY = minigameManager.arena.transform.position.y + ((minigameManager.Radius * arenaTargetPercentage) * (Random.Range(1, 3) * 2 - 3));
 
         Vector3 target = new Vector3(targetX, targetY, -1);
 
@@ -79,6 +82,7 @@ public class ProjectileSpawning : MonoBehaviour {
                 Quaternion.Euler(target - spawnLocation)));
 
         activeProjectiles[activeProjectiles.Count - 1].GetComponent<ProjectileBehavior>().Velocity
-            = (spawnLocation-target).normalized * (projectileSpeed + Random.Range(0f, 0.3f) * Random.Range(1, 3) * 2 - 3);
+            = (target-spawnLocation).normalized * (projectileSpeed + Random.Range(0f, speedVariation) * (Random.Range(1, 3) * 2 - 3));
+        //activeProjectiles[activeProjectiles.Count - 1].GetComponent<ProjectileBehavior>().target = target;
     }
 }

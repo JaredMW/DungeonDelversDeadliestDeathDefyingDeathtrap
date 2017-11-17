@@ -127,13 +127,7 @@ public class Movement : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "enemy")
-        {
-            velocity += (Vector3)coll.gameObject.GetComponent<ProjectileBehavior>().Velocity*15;
-            position += velocity * Time.deltaTime * 5;
-            transform.position = position;
-        }
-        else
+        if (coll.gameObject.tag.Contains("Player"))
         {
             coll.gameObject.GetComponent<Movement>().position += velocity * Time.deltaTime * 5;
             velocity *= -1;
@@ -141,9 +135,5 @@ public class Movement : MonoBehaviour {
             coll.gameObject.transform.position = coll.gameObject.GetComponent<Movement>().position;
             transform.position = position;
         }
-        
-      
-         
-        
     }
 }

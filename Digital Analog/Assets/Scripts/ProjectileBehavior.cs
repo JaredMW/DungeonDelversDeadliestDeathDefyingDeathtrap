@@ -10,6 +10,7 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour {
     
     private Vector3 velocity;
+    //public Vector3 target;
 
     /// <summary>
     /// Get or set the velocity of the Projectile
@@ -40,6 +41,8 @@ public class ProjectileBehavior : MonoBehaviour {
             ProjectileSpawning.activeProjectiles.Remove(gameObject);
             Destroy(gameObject);
         }
+
+        //Debug.DrawLine(gameObject.transform.position, target);
 	}
 
     /// <summary>
@@ -65,7 +68,7 @@ public class ProjectileBehavior : MonoBehaviour {
     /// </summary>
     private void MoveProjectile()
     {
-        transform.position += velocity * Time.deltaTime*2;
+        transform.position += velocity * Time.deltaTime;
     }
 
     /// <summary>
@@ -75,15 +78,16 @@ public class ProjectileBehavior : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D coll)
     {
         // Remove this from the active projectiles and destroy itself
-        if (coll.gameObject.tag == "enemy")
+        if (coll.gameObject.tag.Contains("Player"))
         {
-
+            coll.gameObject.GetComponent<Movement>().velocity += velocity * 20;
+            ProjectileSpawning.activeProjectiles.Remove(gameObject);
+            Destroy(gameObject);
+            Debug.Log("Projectile Destroyed - Player velocity: " + coll.gameObject.GetComponent<Movement>().velocity.magnitude);
         }
         else
         {
-            ProjectileSpawning.activeProjectiles.Remove(gameObject);
-            Destroy(this.gameObject);
-            Debug.Log("Projectile Destroyed");
+
         }
     }
 }

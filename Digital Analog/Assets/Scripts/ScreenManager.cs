@@ -10,10 +10,10 @@ public class ScreenManager : MonoBehaviour
     private static float top;
     private static float bottom;
 
-    private float viewPosX = 0.175f;
-    private float viewPosY = 0.0f;
-    private float viewWidth = 0.65f;
-    private float viewHeight = 1f;
+    //private float viewPosX = 0.175f;
+    //private float viewPosY = 0.0f;
+    //private float viewWidth = 0.65f;
+    //private float viewHeight = 1f;
 
     /// <summary>
     /// Return left side of screen in world units
