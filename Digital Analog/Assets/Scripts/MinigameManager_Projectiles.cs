@@ -66,7 +66,7 @@ public class MiniGameManager_Projectiles : Gamemanager {
         }
 
         // Start shrinking arena
-        if (Timer.count > 8.5f && play)
+        if (Timer.count > 10f && play)
         {
             arena.gameObject.transform.localScale *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
             radius *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
