@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(ProjectileSpawning))]
 
-public class MinigameManager_Projectiles : Gamemanager {
+public class MiniGameManager_Projectiles : Gamemanager {
     
     // Instances
     bool play = false;
@@ -122,7 +122,7 @@ public class MinigameManager_Projectiles : Gamemanager {
         }
     }
 
-    protected override void StartMinigame()
+    public override void StartMinigame()
     {
         base.StartMinigame();
 

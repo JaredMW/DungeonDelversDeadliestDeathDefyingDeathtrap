@@ -53,7 +53,7 @@ public class Gamemanager : MonoBehaviour {
     }
 
     // Setup the minigame
-    protected virtual void StartMinigame()
+    public virtual void StartMinigame()
     {
         // Show the arena and hide menu text
         arena.GetComponent<SpriteRenderer>().enabled = true;
