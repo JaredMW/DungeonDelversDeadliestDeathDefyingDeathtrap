@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour {
     public Vector3 velocity = new Vector3(0.0f, 0.0f,0.0f);
 
     public float speed = 0.0f;
-    public float speedIncrement = 2.0f;
+    public float speedIncrement = .75f;
     public float maxSpeed = 12.0f;
     public float slowDown = 0.97f;
     public float angle;
@@ -26,26 +26,26 @@ public class Movement : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.W))
             {
-                velocity.y += .75f;
+                velocity.y += speedIncrement;
                // position.y += .1f;
                // speed += speedIncrement * Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.S))
             {
-                velocity.y -= .75f;
+                velocity.y -= speedIncrement;
                // position.y -= .1f;
                 // speed += speedIncrement * Time.deltaTime;
             }
            
             if (Input.GetKey(KeyCode.D))
             {
-                velocity.x += .75f;
+                velocity.x += speedIncrement;
                // position.x += .1f;
                 // angle -= turnspeed * Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                velocity.x -= .75f;
+                velocity.x -= speedIncrement;
                // position.x -= .1f;
                 //angle += turnspeed * Time.deltaTime;
             }
@@ -56,23 +56,23 @@ public class Movement : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
-               velocity.y += .75f;
+               velocity.y += speedIncrement;
                 // speed += speedIncrement * Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
-               velocity.y -= .75f;
+               velocity.y -= speedIncrement;
                 // speed += speedIncrement * Time.deltaTime;
             }
            
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                velocity.x += .75f;
+                velocity.x += speedIncrement;
                 // angle -= turnspeed * Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                velocity.x -= .75f;
+                velocity.x -= speedIncrement;
                 //angle += turnspeed * Time.deltaTime;
             }
             
@@ -82,9 +82,9 @@ public class Movement : MonoBehaviour {
         {
             //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
-            float x = Mathf.Clamp(-(Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
+            float x = Mathf.Clamp(-(Input.GetAxis("Horizontal") * speedIncrement)/* * Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
             //float x = (Input.GetAxis("Hotizontal") != 0 ? Time.deltaTime * 1 : 0);
-            float y = Mathf.Clamp(-(Input.GetAxis("Vertical") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
+            float y = Mathf.Clamp(-(Input.GetAxis("Vertical") * speedIncrement) /*Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
             //gameObject.transform.Translate(x, y, 0);
             velocity.x += x;
             velocity.y += y;
@@ -93,8 +93,8 @@ public class Movement : MonoBehaviour {
         {
             //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
-            float x = Mathf.Clamp(-(Input.GetAxis("Horizontal2") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
-            float y = Mathf.Clamp(-(Input.GetAxis("Vertical2") * Time.deltaTime * 150.0f) / 3.25f, -.75f, .75f);
+            float x = Mathf.Clamp(-(Input.GetAxis("Horizontal2") * speedIncrement) /*Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
+            float y = Mathf.Clamp(-(Input.GetAxis("Vertical2") * speedIncrement) /*Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
             //gameObject.transform.Translate(x, y, 0);
             velocity.x += x;
             velocity.y += y;
@@ -112,19 +112,16 @@ public class Movement : MonoBehaviour {
         {
             velocity.y = 0;
         }
-        transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
-            position += velocity * Time.deltaTime;
-           
-            transform.position = position;
-
-     
-
-
+        
+        position += velocity * Time.deltaTime;
+        transform.position = position;
     }
+
     public Vector3 GetDirection()
     {
         return (transform.rotation*velocity);
     }
+
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag.Contains("Player"))
