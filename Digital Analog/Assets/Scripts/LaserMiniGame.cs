@@ -119,7 +119,7 @@ public class LaserMiniGame : Gamemanager {
         }
     }
 
-    protected override void StartMinigame()
+    public override void StartMinigame()
     {
         base.StartMinigame();
 
