@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MiniGameManager_Projectiles))]
+[RequireComponent(typeof(MinigameManager_Projectiles))]
 
 /// <summary>
 /// Manager class for creating projectiles
@@ -15,7 +15,7 @@ public class ProjectileSpawning : MonoBehaviour {
     public float speedVariation = 2.5f;
 
     public float arenaTargetPercentage = .25f;
-    private MiniGameManager_Projectiles minigameManager;
+    private MinigameManager_Projectiles minigameManager;
 
     ///<summary>
     ///How often the projectiles should spawn
@@ -25,7 +25,7 @@ public class ProjectileSpawning : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        minigameManager = gameObject.GetComponent<MiniGameManager_Projectiles>();
+        minigameManager = gameObject.GetComponent<MinigameManager_Projectiles>();
         activeProjectiles = new List<GameObject>();
         ScreenManager.CalculateScreen();
 	}
