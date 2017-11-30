@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MiniGameManager_Projectiles))]
+//[RequireComponent(typeof(MiniGameManager_Projectiles))]
 
 /// <summary>
 /// Manager class for creating projectiles

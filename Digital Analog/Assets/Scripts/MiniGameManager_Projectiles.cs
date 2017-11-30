@@ -4,7 +4,7 @@ using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(ProjectileSpawning))]
+//[RequireComponent(typeof(ProjectileSpawning))]
 
 public class MiniGameManager_Projectiles : Gamemanager {
     
