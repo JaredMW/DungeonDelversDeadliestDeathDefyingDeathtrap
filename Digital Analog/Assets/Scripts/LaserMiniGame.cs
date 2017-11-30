@@ -5,24 +5,24 @@ using UnityEngine;
 public class LaserMiniGame : Gamemanager {
 
     // Instances
-    float radius = 7.15f;
+    //float radius = 7.15f;
     bool play = false;
     bool gameOver = false;
-    public float arenaShrinkRate = .9987f;
+    //public float arenaShrinkRate = .9987f;
 
-    private ProjectileSpawning spawnManager;
+    //private ProjectileSpawning spawnManager;
 
-    public float Radius
+    /*public float Radius
     {
         get { return radius; }
     }
-
+    */
 
     protected override void Start()
     {
         base.Start();
         ScreenManager.CalculateScreen();
-        spawnManager = GetComponent<ProjectileSpawning>();
+        //spawnManager = GetComponent<ProjectileSpawning>();
     }
 
 
@@ -52,7 +52,7 @@ public class LaserMiniGame : Gamemanager {
         {
             //instructions.gameObject.SetActive(false);
             objectiveScreen.gameObject.SetActive(false);
-            spawnManager.enabled = true;
+            //spawnManager.enabled = true;
 
             for (int i = 0; i < currentPlayers.Count; i++)
             {
@@ -63,18 +63,20 @@ public class LaserMiniGame : Gamemanager {
         }
 
         // Start shrinking arena
+        /*
         if (Timer.count > 10f && play)
         {
-            arena.gameObject.transform.localScale *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
-            radius *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
+            //arena.gameObject.transform.localScale *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
+            //radius *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
         }
+        */
         for (int i = 0; i < currentPlayers.Count; i++)
         {
             float distance = 0;
 
             distance = Mathf.Sqrt((Mathf.Pow(currentPlayers[i].transform.position.x - arena.transform.position.x, 2)
                 + Mathf.Pow(currentPlayers[i].transform.position.y - arena.transform.position.y, 2)));
-
+            /*
             if (distance > radius)
             {
                 currentPlayers[i].SetActive(false);
@@ -82,6 +84,7 @@ public class LaserMiniGame : Gamemanager {
                 currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
                 currentPlayers.Remove(currentPlayers[i]);
             }
+            */
 
             //Debug.Log(distance);
             //foreach (GameObject player2 in currentplayers)
@@ -138,7 +141,7 @@ public class LaserMiniGame : Gamemanager {
         gameOver = true;
         GetComponent<Timer>().iscounting = false;
 
-        spawnManager.enabled = false;
+        //spawnManager.enabled = false;
 
         //endTimer = endTimer - .01f;
         //if (endTimer <= 0)
