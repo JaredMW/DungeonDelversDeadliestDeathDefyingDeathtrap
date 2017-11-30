@@ -75,7 +75,7 @@ public class Gamemanager : MonoBehaviour {
         if (playercountstart == 1)
         {
             gameOverScreen.SetActive(true);
-            gameOverText.text = "Score: "+ Timer.count;
+            gameOverText.text = "Score:\n"+ string.Format("{0:0.00}", Timer.count) + " seconds";
         }
         else if (playercountstart > 1)
         {
