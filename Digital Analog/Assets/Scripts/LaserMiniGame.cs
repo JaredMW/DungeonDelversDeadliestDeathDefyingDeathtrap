@@ -10,7 +10,7 @@ public class LaserMiniGame : Gamemanager {
     bool gameOver = false;
     //public float arenaShrinkRate = .9987f;
 
-    private ProjectileSpawning spawnManager;
+    //private ProjectileSpawning spawnManager;
 
     /*public float Radius
     {
@@ -22,7 +22,7 @@ public class LaserMiniGame : Gamemanager {
     {
         base.Start();
         ScreenManager.CalculateScreen();
-        spawnManager = GetComponent<ProjectileSpawning>();
+        //spawnManager = GetComponent<ProjectileSpawning>();
     }
 
 
@@ -52,7 +52,7 @@ public class LaserMiniGame : Gamemanager {
         {
             //instructions.gameObject.SetActive(false);
             objectiveScreen.gameObject.SetActive(false);
-            spawnManager.enabled = true;
+            //spawnManager.enabled = true;
 
             for (int i = 0; i < currentPlayers.Count; i++)
             {
@@ -141,7 +141,7 @@ public class LaserMiniGame : Gamemanager {
         gameOver = true;
         GetComponent<Timer>().iscounting = false;
 
-        spawnManager.enabled = false;
+        //spawnManager.enabled = false;
 
         //endTimer = endTimer - .01f;
         //if (endTimer <= 0)
