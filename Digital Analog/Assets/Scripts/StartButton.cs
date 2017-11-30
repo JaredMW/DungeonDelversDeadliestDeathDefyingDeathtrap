@@ -21,4 +21,16 @@ public class StartButton : MonoBehaviour {
         Debug.Log("Started");
         SceneManager.LoadScene("Minigame_Projectiles");
     }
+    public void StartMinigame_Lasers()
+    {
+        //Gamemanager.currentMinigame = MiniGame.Projectiles;
+        Debug.Log("Started");
+        SceneManager.LoadScene("LaserGame");
+    }
+    public void StartMinigame_Seeker()
+    {
+        //Gamemanager.currentMinigame = MiniGame.Projectiles;
+        Debug.Log("Started");
+        SceneManager.LoadScene("Minigame_Saw");
+    }
 }
