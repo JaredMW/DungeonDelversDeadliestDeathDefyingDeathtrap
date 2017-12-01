@@ -4,18 +4,29 @@ using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-//[RequireComponent(typeof(ProjectileSpawning))]
+[RequireComponent(typeof(ProjectileSpawning))]
 
+/// <summary>
+/// Manager of the projectiles minigame, where players must fight to
+/// stay on a shrinking stage while avoiding fireballs that are coming
+/// at them
+/// </summary>
 public class MiniGameManager_Projectiles : Gamemanager {
-    
+
     // Instances
-    bool play = false;
-    bool gameOver = false;
+    #region Fields
+    private bool play = false;
+    private bool gameOver = false;
+    public GameObject arena;
     public float arenaShrinkRate = .9987f;
-    float radius = 7.15f;
+    private float radius = 7.15f;
 
     private ProjectileSpawning spawnManager;
+    #endregion
 
+    /// <summary>
+    /// Get the radius of the arena
+    /// </summary>
     public float Radius
     {
         get { return radius; }
@@ -25,7 +36,9 @@ public class MiniGameManager_Projectiles : Gamemanager {
     protected override void Start()
     {
         base.Start();
-        ScreenManager.CalculateScreen();
+
+        // Show the arena & setup the spawn manager
+        arena.GetComponent<SpriteRenderer>().enabled = false;
         spawnManager = GetComponent<ProjectileSpawning>();
     }
 
@@ -71,6 +84,7 @@ public class MiniGameManager_Projectiles : Gamemanager {
             arena.gameObject.transform.localScale *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
             radius *= arenaShrinkRate;// Mathf.Clamp(arenaShrinkRate * Time.deltaTime, 0, .999f);
         }
+
         for (int i = 0; i < currentPlayers.Count; i++)
         {
             float distance = 0;
@@ -85,27 +99,26 @@ public class MiniGameManager_Projectiles : Gamemanager {
                 currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
                 currentPlayers.Remove(currentPlayers[i]);
             }
-
-            //Debug.Log(distance);
-            //foreach (GameObject player2 in currentplayers)
-            //{
-            //    player.GetComponent<Movement>().Iscolliding(player2);
-            //}
         }
         
+        // If playing singleplayer...
         if (playercountstart <= 1)
         {
+            // If there is nobody left standing, end the minigame
             if (currentPlayers.Count < 1 && play)
             {
                 EndMinigame();
                 GameOverCountdown();
             }
-            // Countdown until the next minigame or until 
+
+            // Countdown until the next minigame
             else if (currentPlayers.Count < 1 && !play && gameOver)
             {
                 GameOverCountdown();
             }
         }
+
+        // If playing multiplayer...
         else if (playercountstart > 1)
         {
             // End the minigame when 1 or less currentplayers are present
@@ -114,7 +127,8 @@ public class MiniGameManager_Projectiles : Gamemanager {
                 EndMinigame();
                 GameOverCountdown();
             }
-            // Countdown until the next minigame or until 
+
+            // Countdown until the next minigame
             else if (currentPlayers.Count <= 1 && !play && gameOver)
             {
                 GameOverCountdown();
@@ -122,17 +136,21 @@ public class MiniGameManager_Projectiles : Gamemanager {
         }
     }
 
+    /// <summary>
+    /// Start the Projectiles minigame
+    /// </summary>
     public override void StartMinigame()
     {
         base.StartMinigame();
 
+        arena.GetComponent<SpriteRenderer>().enabled = true;
         play = true;
         gameOver = false;
-
-
     }
 
-    // End the projectiles minigame
+    /// <summary>
+    /// End the Projectiles minigame
+    /// </summary>
     protected override void EndMinigame()
     {
         base.EndMinigame();
@@ -142,33 +160,5 @@ public class MiniGameManager_Projectiles : Gamemanager {
         GetComponent<Timer>().iscounting = false;
 
         spawnManager.enabled = false;
-        
-        //endTimer = endTimer - .01f;
-        //if (endTimer <= 0)
-        //{
-        //    Timer.count = 0;
-        //    SceneManager.LoadScene("Scanning");
-        //}
     }
-  //  public void StartMinigame()
-   // {
-        // Show the arena and hide menu text
-        //arena.GetComponent<SpriteRenderer>().enabled = true;
-        //button.gameObject.SetActive(false);
-        //text1.gameObject.SetActive(false);
-        //text2.gameObject.SetActive(false);
-        //text3.gameObject.SetActive(false);
-        //foreach (GameObject player in currentplayers)
-        //{
-        //    player.SetActive(true);
-        //    player.GetComponent<Movement>().enabled = true;
-        //    player.GetComponentInChildren<SpriteRenderer>().enabled = true;
-
-        //}
-        // Instantiate player prefabs at their corresponding start positions
-
-
-        // Instantiate the arena corresponding with this minigame
-
-   // }
 }

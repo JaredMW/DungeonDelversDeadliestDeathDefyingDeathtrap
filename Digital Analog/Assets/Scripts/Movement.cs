@@ -4,6 +4,7 @@ using System.Collections;
 public class Movement : MonoBehaviour {
     public Vector3 position;
     public Vector3 velocity = new Vector3(0.0f, 0.0f,0.0f);
+    private Vector3 inputVelocity = Vector3.zero;
 
     public float speed = 0.0f;
     public float speedIncrement = .75f;
@@ -13,97 +14,99 @@ public class Movement : MonoBehaviour {
     public float turnspeed;
     public bool useSlowdown = true;
   
-    void Start () {
-        
+    void Start ()
+    {
         transform.position = position;
         angle = transform.rotation.z;
 	}
 	
 	
 	void Update () {
-        
-        if (gameObject.tag == "Player1")
+        inputVelocity = Vector3.zero;
+
+        if (gameObject.tag == "Player1" || gameObject.tag == "Player2")
         {
+            // Moving upwards
             if (Input.GetKey(KeyCode.W))
             {
-                velocity.y += speedIncrement;
-               // position.y += .1f;
-               // speed += speedIncrement * Time.deltaTime;
+                inputVelocity.y += speedIncrement;
             }
+
+            // Moving downwards
             if (Input.GetKey(KeyCode.S))
             {
-                velocity.y -= speedIncrement;
-               // position.y -= .1f;
-                // speed += speedIncrement * Time.deltaTime;
+                inputVelocity.y -= speedIncrement;
             }
            
+            // Moving left
             if (Input.GetKey(KeyCode.D))
             {
-                velocity.x += speedIncrement;
-               // position.x += .1f;
-                // angle -= turnspeed * Time.deltaTime;
+                inputVelocity.x += speedIncrement;
             }
+
+            // Moving right
             if (Input.GetKey(KeyCode.A))
             {
-                velocity.x -= speedIncrement;
-               // position.x -= .1f;
-                //angle += turnspeed * Time.deltaTime;
+                inputVelocity.x -= speedIncrement;
             }
-          
+
+            // Clamp velocity to the maximum speed
 
         }
-        if (gameObject.tag == "Player2")
-        {
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-               velocity.y += speedIncrement;
-                // speed += speedIncrement * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-               velocity.y -= speedIncrement;
-                // speed += speedIncrement * Time.deltaTime;
-            }
+
+        //else if (gameObject.tag == "Player2")
+        //{
+        //    if (Input.GetKey(KeyCode.UpArrow))
+        //    {
+        //       velocity.y += speedIncrement;
+        //    }
+        //    if (Input.GetKey(KeyCode.DownArrow))
+        //    {
+        //       velocity.y -= speedIncrement;
+        //    }
            
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                velocity.x += speedIncrement;
-                // angle -= turnspeed * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                velocity.x -= speedIncrement;
-                //angle += turnspeed * Time.deltaTime;
-            }
-            
+        //    if (Input.GetKey(KeyCode.RightArrow))
+        //    {
+        //        velocity.x += speedIncrement;
+        //    }
+        //    if (Input.GetKey(KeyCode.LeftArrow))
+        //    {
+        //        velocity.x -= speedIncrement;
+        //    }
+        //}
 
-        }
-        if (gameObject.tag == "Player3")
+        else if (gameObject.tag == "Player3")
         {
             //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
             float x = Mathf.Clamp(-(Input.GetAxis("Horizontal") * speedIncrement)/* * Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
-            //float x = (Input.GetAxis("Hotizontal") != 0 ? Time.deltaTime * 1 : 0);
             float y = Mathf.Clamp(-(Input.GetAxis("Vertical") * speedIncrement) /*Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
-            //gameObject.transform.Translate(x, y, 0);
-            velocity.x += x;
-            velocity.y += y;
+            
+            inputVelocity.x += x;
+            inputVelocity.y += y;
         }
+
         if (gameObject.tag == "Player4")
         {
             //Debug.Log(Input.GetJoystickNames());
             //Debug.Log("PLAYER3");
             float x = Mathf.Clamp(-(Input.GetAxis("Horizontal2") * speedIncrement) /*Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
             float y = Mathf.Clamp(-(Input.GetAxis("Vertical2") * speedIncrement) /*Time.deltaTime * 150.0f) / 3.25f*/, -speedIncrement, speedIncrement);
-            //gameObject.transform.Translate(x, y, 0);
-            velocity.x += x;
-            velocity.y += y;
+
+            inputVelocity.x += x;
+            inputVelocity.y += y;
         }
+
+        // Add input velocity to total velocity
+        velocity += inputVelocity;
+
+        // Apply friction
         if (useSlowdown)
         {
             velocity *= slowDown;
         }
 
+        // Come to a complete halt
         if (velocity.x < .1 && velocity.x > -.1)
         {
             velocity.x = 0;
@@ -113,6 +116,7 @@ public class Movement : MonoBehaviour {
             velocity.y = 0;
         }
         
+        // Final translation of movement
         position += velocity * Time.deltaTime;
         transform.position = position;
     }
@@ -122,6 +126,10 @@ public class Movement : MonoBehaviour {
         return (transform.rotation*velocity);
     }
 
+    /// <summary>
+    /// Resolve collisions
+    /// </summary>
+    /// <param name="coll">Other colliding object</param>
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag.Contains("Player"))

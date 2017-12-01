@@ -4,11 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Type of minigame
+/// </summary>
 public enum MiniGame
 {
-    Projectiles
+    Projectiles,
+    Lasers,
+    Seeker
 }
 
+/// <summary>
+/// Base class for minigame management; also manages global game data
+/// </summary>
 public class Gamemanager : MonoBehaviour {
     
     public Button button;            // Push to start
@@ -26,9 +34,6 @@ public class Gamemanager : MonoBehaviour {
     public int playercountstart = 0;
     //public int numPlayers;
 
-    public List<GameObject> arenaPrefabs;   // Minigame arena prefabs
-    public GameObject arena;         // Current minigame arena + objects
-
     public float endTimer = 3.5f;
 
 
@@ -36,7 +41,6 @@ public class Gamemanager : MonoBehaviour {
     protected virtual void Start () {
         startScreen.gameObject.SetActive(true);
         objectiveScreen.gameObject.SetActive(false);
-        arena.GetComponent<SpriteRenderer>().enabled = false;
         startbutton.interactable = false;
         for (int i = 0; i < players.Count; i++)
         {
@@ -52,37 +56,42 @@ public class Gamemanager : MonoBehaviour {
 
     }
 
-    // Setup the minigame
+    /// <summary>
+    /// Set of procedures to call for all minigames when they begin
+    /// </summary>
     public virtual void StartMinigame()
     {
-        // Show the arena and hide menu text
-        arena.GetComponent<SpriteRenderer>().enabled = true;
+        // Hide menu text and show the objective screen
         startScreen.SetActive(false);
         objectiveScreen.SetActive(true);
+
+        // Start the timer
         GetComponent<Timer>().iscounting = true;
 
-        // Instantiate player prefabs at their corresponding start positions
-       
+        // Recalculate the screen
+        ScreenManager.CalculateScreen();
+    }
 
-
-            // Instantiate the arena corresponding with this minigame
-
-        }
-
-    // End the minigame and declare a winner
+    /// <summary>
+    /// Set of procedures to follow for minigames when they end
+    /// </summary>
     protected virtual void EndMinigame()
     {
+        // If playing single player, show the time they survived for
         if (playercountstart == 1)
         {
             gameOverScreen.SetActive(true);
             gameOverText.text = "Score:\n"+ string.Format("{0:0.00}", Timer.count) + " seconds";
         }
+
+        // If multiplayer, the last one standing wins
         else if (playercountstart > 1)
         {
             // Display game over information
             gameOverScreen.SetActive(true);
             gameOverText.text = currentPlayers[0].name + " won!";
         }
+
         // Disable movement for all players and immediately stop any current movement
         for (int i = 0; i < players.Count; i++)
         {
@@ -92,7 +101,7 @@ public class Gamemanager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Do a QUICK countdown at the game over screen.
+    /// Do a QUICK countdown during the game over screen.
     /// Then, transition to either the scanning screen or the next game in the minigame sequence.
     /// </summary>
     protected void GameOverCountdown()
@@ -106,24 +115,39 @@ public class Gamemanager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Player #1 is playing this minigame
+    /// </summary>
     public void AddPlayer1()
     {
         currentPlayers.Add(players[0]);
         playercountstart++;
         Addplayer1.interactable = false;
     }
+
+    /// <summary>
+    /// Player #2 is playing this minigame
+    /// </summary>
     public void AddPlayer2()
     {
         currentPlayers.Add(players[1]);
         playercountstart++;
         Addplayer2.interactable = false;
     }
+
+    /// <summary>
+    /// Player #3 is playing this minigame
+    /// </summary>
     public void AddPlayer3()
     {
         currentPlayers.Add(players[2]);
         playercountstart++;
         Addplayer3.interactable = false;
     }
+
+    /// <summary>
+    /// Player #4 is playing this minigame
+    /// </summary>
     public void AddPlayer4()
     {
         currentPlayers.Add(players[3]);

@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BackgroundGenerator.cs" />
     <Compile Include="Assets\Scripts\Gamemanager.cs" />
     <Compile Include="Assets\Scripts\LaserMiniGame.cs" />
     <Compile Include="Assets\Scripts\LavaBehavior.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\ProjectileBehavior.cs" />
     <Compile Include="Assets\Scripts\ProjectileSpawning.cs" />
     <Compile Include="Assets\Scripts\ScreenManager.cs" />
+    <Compile Include="Assets\Scripts\SpriteInfo.cs" />
     <Compile Include="Assets\Scripts\StartButton.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
   </ItemGroup>
