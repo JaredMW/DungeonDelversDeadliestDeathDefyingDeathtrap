@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour {
 	void Update () {
         inputVelocity = Vector3.zero;
 
-        if (gameObject.tag == "Player1" || gameObject.tag == "Player2")
+        if (gameObject.tag == "Player1")
         {
             // Moving upwards
             if (Input.GetKey(KeyCode.W))
@@ -38,13 +38,13 @@ public class Movement : MonoBehaviour {
                 inputVelocity.y -= speedIncrement;
             }
            
-            // Moving left
+            // Moving right
             if (Input.GetKey(KeyCode.D))
             {
                 inputVelocity.x += speedIncrement;
             }
 
-            // Moving right
+            // Moving left
             if (Input.GetKey(KeyCode.A))
             {
                 inputVelocity.x -= speedIncrement;
@@ -54,26 +54,32 @@ public class Movement : MonoBehaviour {
 
         }
 
-        //else if (gameObject.tag == "Player2")
-        //{
-        //    if (Input.GetKey(KeyCode.UpArrow))
-        //    {
-        //       velocity.y += speedIncrement;
-        //    }
-        //    if (Input.GetKey(KeyCode.DownArrow))
-        //    {
-        //       velocity.y -= speedIncrement;
-        //    }
-           
-        //    if (Input.GetKey(KeyCode.RightArrow))
-        //    {
-        //        velocity.x += speedIncrement;
-        //    }
-        //    if (Input.GetKey(KeyCode.LeftArrow))
-        //    {
-        //        velocity.x -= speedIncrement;
-        //    }
-        //}
+        else if (gameObject.tag == "Player2")
+        {
+            // Moving up
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                inputVelocity.y += speedIncrement;
+            }
+
+            // Moving down
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                inputVelocity.y -= speedIncrement;
+            }
+
+            // Moving right
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                inputVelocity.x += speedIncrement;
+            }
+
+            // Moving left
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                inputVelocity.x -= speedIncrement;
+            }
+        }
 
         else if (gameObject.tag == "Player3")
         {
