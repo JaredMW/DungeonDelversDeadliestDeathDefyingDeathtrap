@@ -103,11 +103,7 @@ public class MiniGameManager_Seeker : Gamemanager
     public override void StartMinigame()
     {
         base.StartMinigame();
-
-        play = true;
-        gameOver = false;
-
-
+        currentMinigame = MiniGame.Seeker;
     }
 
     /// <summary>
@@ -116,10 +112,6 @@ public class MiniGameManager_Seeker : Gamemanager
     protected override void EndMinigame()
     {
         base.EndMinigame();
-
-        play = false;
-        gameOver = true;
-        GetComponent<Timer>().iscounting = false;
     }
 }
 

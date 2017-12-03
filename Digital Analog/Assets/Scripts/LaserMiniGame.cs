@@ -11,12 +11,15 @@ using UnityEngine;
 public class LaserMiniGame : Gamemanager {
 
     // Instances
-    bool play = false;
-    bool gameOver = false;
+    //bool play = false;
+    //bool gameOver = false;
+    LaserSpawner laserManager;
 
     protected override void Start()
     {
         base.Start();
+        laserManager = GetComponent<LaserSpawner>();
+        laserManager.enabled = false;
     }
 
 
@@ -50,6 +53,9 @@ public class LaserMiniGame : Gamemanager {
                 currentPlayers[i].GetComponent<Movement>().enabled = true;
                 currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
             }
+
+            // Begin laser spawning
+            laserManager.enabled = true;
         }
         
         // If playing singleplayer...
@@ -93,11 +99,7 @@ public class LaserMiniGame : Gamemanager {
     public override void StartMinigame()
     {
         base.StartMinigame();
-
-        play = true;
-        gameOver = false;
-
-
+        currentMinigame = MiniGame.Lasers;
     }
 
     /// <summary>
@@ -107,8 +109,7 @@ public class LaserMiniGame : Gamemanager {
     {
         base.EndMinigame();
 
-        play = false;
-        gameOver = true;
-        GetComponent<Timer>().iscounting = false;
+        // Stop spawning lasers
+        laserManager.enabled = false;
     }
 }

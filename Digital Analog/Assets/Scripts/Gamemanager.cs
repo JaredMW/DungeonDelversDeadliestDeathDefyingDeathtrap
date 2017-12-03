@@ -28,13 +28,16 @@ public class Gamemanager : MonoBehaviour {
     //public Image instructions;
 
     
-    private static MiniGame currentMinigame;
+    public static MiniGame currentMinigame;
     public List<GameObject> players; // The players in the game
     public List<GameObject> currentPlayers;
     public int playercountstart = 0;
     //public int numPlayers;
 
     public float endTimer = 3.5f;
+
+    protected bool play = false;
+    protected bool gameOver = false;
 
 
     // Use this for initialization
@@ -70,6 +73,9 @@ public class Gamemanager : MonoBehaviour {
 
         // Recalculate the screen
         ScreenManager.CalculateScreen();
+
+        play = true;
+        gameOver = false;
     }
 
     /// <summary>
@@ -98,6 +104,10 @@ public class Gamemanager : MonoBehaviour {
             players[i].GetComponent<Movement>().enabled = false;
             players[i].GetComponent<Movement>().velocity = Vector3.zero;
         }
+
+        play = false;
+        gameOver = true;
+        GetComponent<Timer>().iscounting = false;
     }
 
     /// <summary>
@@ -154,4 +164,29 @@ public class Gamemanager : MonoBehaviour {
         playercountstart++;
         Addplayer4.interactable = false;
     }
+
+    /// <summary>
+    /// Remove a player from gameplay
+    /// </summary>
+    /// <param name="activePlayerIndex">Index of active player to remove</param>
+    public virtual void KillPlayer(int activePlayerIndex)
+    {
+        currentPlayers[activePlayerIndex].SetActive(false);
+        currentPlayers[activePlayerIndex].GetComponent<Movement>().enabled = false;
+        currentPlayers[activePlayerIndex].GetComponentInChildren<SpriteRenderer>().enabled = false;
+        currentPlayers.Remove(currentPlayers[activePlayerIndex]);
+    }
+
+    ///// <summary>
+    ///// Remove a player from gameplay
+    ///// </summary>
+    ///// <param name="playerToKill">Player to kill</param>
+    //public virtual void KillPlayer(GameObject playerToKill)
+    //{
+    //    int activePlayerIndex = currentPlayers
+    //    currentPlayers[activePlayerIndex].SetActive(false);
+    //    currentPlayers[activePlayerIndex].GetComponent<Movement>().enabled = false;
+    //    currentPlayers[activePlayerIndex].GetComponentInChildren<SpriteRenderer>().enabled = false;
+    //    currentPlayers.Remove(currentPlayers[activePlayerIndex]);
+    //}
 }

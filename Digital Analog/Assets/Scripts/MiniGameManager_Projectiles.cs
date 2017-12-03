@@ -15,8 +15,8 @@ public class MiniGameManager_Projectiles : Gamemanager {
 
     // Instances
     #region Fields
-    private bool play = false;
-    private bool gameOver = false;
+    //private bool play = false;
+    //private bool gameOver = false;
     public GameObject arena;
     public float arenaShrinkRate = .9987f;
     private float radius = 7.15f;
@@ -92,12 +92,10 @@ public class MiniGameManager_Projectiles : Gamemanager {
             distance = Mathf.Sqrt((Mathf.Pow(currentPlayers[i].transform.position.x- arena.transform.position.x, 2)
                 + Mathf.Pow(currentPlayers[i].transform.position.y - arena.transform.position.y, 2)));
 
+            // Kill the player if they run off the arena
             if (distance > radius)
             {
-                currentPlayers[i].SetActive(false);
-                currentPlayers[i].GetComponent<Movement>().enabled = false;
-                currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
-                currentPlayers.Remove(currentPlayers[i]);
+                KillPlayer(i);
             }
         }
         
@@ -142,10 +140,15 @@ public class MiniGameManager_Projectiles : Gamemanager {
     public override void StartMinigame()
     {
         base.StartMinigame();
+        currentMinigame = MiniGame.Projectiles;
 
         arena.GetComponent<SpriteRenderer>().enabled = true;
-        play = true;
-        gameOver = false;
+
+        for (int i = 0; i < ProjectileSpawning.activeProjectiles.Count; i++)
+        {
+            Destroy(ProjectileSpawning.activeProjectiles[ProjectileSpawning.activeProjectiles.Count - 1]);
+            ProjectileSpawning.activeProjectiles.RemoveAt(ProjectileSpawning.activeProjectiles.Count - 1);
+        }
     }
 
     /// <summary>
@@ -154,10 +157,6 @@ public class MiniGameManager_Projectiles : Gamemanager {
     protected override void EndMinigame()
     {
         base.EndMinigame();
-
-        play = false;
-        gameOver = true;
-        GetComponent<Timer>().iscounting = false;
 
         spawnManager.enabled = false;
     }
