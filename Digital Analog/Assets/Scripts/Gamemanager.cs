@@ -96,14 +96,21 @@ public class Gamemanager : MonoBehaviour {
         {
             // Display game over information
             gameOverScreen.SetActive(true);
-            gameOverText.text = currentPlayers[0].name + " won!";
+            // checks to make sure it wasn't a draw
+            if (currentPlayers.Count > 0)
+            {
+                gameOverText.text = currentPlayers[0].name + " won!";
+            }
         }
 
         // Disable movement for all players and immediately stop any current movement
-        for (int i = 0; i < players.Count; i++)
+        if(currentPlayers.Count > 0)
         {
-            players[i].GetComponent<Movement>().canMove = false;
-            //players[i].GetComponent<Movement>().velocity = Vector3.zero;
+            for (int i = 0; i < players.Count; i++)
+            {
+                players[i].GetComponent<Movement>().canMove = false;
+                //players[i].GetComponent<Movement>().velocity = Vector3.zero;
+            }
         }
 
         play = false;
