@@ -47,8 +47,7 @@ public class Movement : MonoBehaviour {
         transform.position = position;
         angle = transform.rotation.z;
 	}
-	
-	
+
 	void Update () {
 
         // If not dying, move through input
@@ -194,14 +193,17 @@ public class Movement : MonoBehaviour {
     /// <param name="coll">Other colliding object</param>
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag.Contains("Player"))
+        if(Gamemanager.currentMinigame != MiniGame.Lasers)
         {
-            coll.gameObject.GetComponent<Movement>().position += velocity * Time.deltaTime * 5;
-            //coll.gameObject.GetComponent<Movement>().velocity += velocity * Time.deltaTime * 20;
-            velocity *= -1;
-            position += velocity * Time.deltaTime * 5;
-            coll.gameObject.transform.position = coll.gameObject.GetComponent<Movement>().position;
-            transform.position = position;
+            if (coll.gameObject.tag.Contains("Player"))
+            {
+                coll.gameObject.GetComponent<Movement>().position += velocity * Time.deltaTime * 5;
+                //coll.gameObject.GetComponent<Movement>().velocity += velocity * Time.deltaTime * 20;
+                velocity *= -1;
+                position += velocity * Time.deltaTime * 5;
+                coll.gameObject.transform.position = coll.gameObject.GetComponent<Movement>().position;
+                transform.position = position;
+            }
         }
     }
 

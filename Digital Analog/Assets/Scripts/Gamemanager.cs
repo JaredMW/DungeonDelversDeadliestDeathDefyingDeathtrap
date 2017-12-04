@@ -39,7 +39,6 @@ public class Gamemanager : MonoBehaviour {
     protected bool play = false;
     protected bool gameOver = false;
 
-
     // Use this for initialization
     protected virtual void Start () {
         startScreen.gameObject.SetActive(true);
