@@ -164,6 +164,23 @@ public class Movement : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, 0, angle);
         position += velocity * Time.deltaTime;
         transform.position = position;
+
+        if(transform.position.x > ScreenManager.Right)
+        {
+            transform.position = new Vector3(ScreenManager.Right,transform.position.y,transform.position.z);
+        }
+        if (transform.position.x < ScreenManager.Left)
+        {
+            transform.position = new Vector3(ScreenManager.Left, transform.position.y, transform.position.z);
+        }
+        if (transform.position.y > ScreenManager.Top)
+        {
+            transform.position = new Vector3(transform.position.x, ScreenManager.Top, transform.position.z);
+        }
+        if (transform.position.y < ScreenManager.Bottom)
+        {
+            transform.position = new Vector3(transform.position.x, ScreenManager.Bottom, transform.position.z);
+        }
     }
 
     public Vector3 GetDirection()
