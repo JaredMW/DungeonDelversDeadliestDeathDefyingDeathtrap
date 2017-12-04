@@ -51,6 +51,8 @@ public class Gamemanager : MonoBehaviour {
             players[i].GetComponent<Movement>().enabled = false;
             players[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
+
+        //currentPlayers = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -101,8 +103,8 @@ public class Gamemanager : MonoBehaviour {
         // Disable movement for all players and immediately stop any current movement
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].GetComponent<Movement>().enabled = false;
-            players[i].GetComponent<Movement>().velocity = Vector3.zero;
+            players[i].GetComponent<Movement>().canMove = false;
+            //players[i].GetComponent<Movement>().velocity = Vector3.zero;
         }
 
         play = false;
@@ -171,10 +173,11 @@ public class Gamemanager : MonoBehaviour {
     /// <param name="activePlayerIndex">Index of active player to remove</param>
     public virtual void KillPlayer(int activePlayerIndex)
     {
-        currentPlayers[activePlayerIndex].SetActive(false);
-        currentPlayers[activePlayerIndex].GetComponent<Movement>().enabled = false;
-        currentPlayers[activePlayerIndex].GetComponentInChildren<SpriteRenderer>().enabled = false;
-        currentPlayers.Remove(currentPlayers[activePlayerIndex]);
+        //currentPlayers[activePlayerIndex].SetActive(false);
+        //currentPlayers[activePlayerIndex].GetComponent<Movement>().enabled = false;
+        currentPlayers[activePlayerIndex].GetComponent<Movement>().KillPlayer();
+        //currentPlayers[activePlayerIndex].GetComponentInChildren<SpriteRenderer>().enabled = false;
+        currentPlayers.RemoveAt(activePlayerIndex);
     }
 
     ///// <summary>

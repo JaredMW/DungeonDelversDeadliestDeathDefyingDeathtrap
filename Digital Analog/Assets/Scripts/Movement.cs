@@ -17,7 +17,14 @@ public class Movement : MonoBehaviour {
     private bool isDying = false;
     private float deathTimer;
     private float timeToDie;
+    private bool dead = false;
+
+    public bool canMove = true;
+
     public float spinoutAngle = 1f;
+    private float spinoutX = 1f;
+    private float spinoutY = 1f;
+    private float spinoutSpeedVariation = .7f;
 
     /// <summary>
     /// Is this player dying?
@@ -25,6 +32,14 @@ public class Movement : MonoBehaviour {
     public bool IsDying
     {
         get { return isDying; }
+    }
+
+    /// <summary>
+    /// Are they dead?
+    /// </summary>
+    public bool IsDead
+    {
+        get { return dead; }
     }
   
     void Start ()
@@ -37,7 +52,7 @@ public class Movement : MonoBehaviour {
 	void Update () {
 
         // If not dying, move through input
-        if (!isDying)
+        if (canMove && !isDying)
         {
             inputVelocity = Vector3.zero;
 
@@ -144,8 +159,9 @@ public class Movement : MonoBehaviour {
         {
             KillBehavior();
         }
-        
+
         // Final translation of movement
+        transform.rotation = Quaternion.Euler(0, 0, angle);
         position += velocity * Time.deltaTime;
         transform.position = position;
     }
@@ -164,6 +180,7 @@ public class Movement : MonoBehaviour {
         if (coll.gameObject.tag.Contains("Player"))
         {
             coll.gameObject.GetComponent<Movement>().position += velocity * Time.deltaTime * 5;
+            //coll.gameObject.GetComponent<Movement>().velocity += velocity * Time.deltaTime * 20;
             velocity *= -1;
             position += velocity * Time.deltaTime * 5;
             coll.gameObject.transform.position = coll.gameObject.GetComponent<Movement>().position;
@@ -176,14 +193,34 @@ public class Movement : MonoBehaviour {
     /// </summary>
     public void KillPlayer()
     {
-        isDying = true;
-
-        // If playing lasers, randomly determine spinout angle direction
-        if (Gamemanager.currentMinigame == MiniGame.Lasers)
+        if (!isDying || !dead)
         {
-            spinoutAngle *= (Random.Range(0, 2) == 1) ? 1 : -1;
-            timeToDie = 1f;
-            deathTimer = 0;
+            isDying = true;
+            canMove = false;
+
+            // If playing lasers, randomly determine spinout angle direction
+            if (Gamemanager.currentMinigame == MiniGame.Lasers)
+            {
+                spinoutAngle *= (Random.Range(0, 2) == 1) ? 1 : -1;
+                spinoutAngle += Random.Range(-10f, 100f);
+
+                spinoutX = Random.Range(spinoutX - spinoutSpeedVariation, spinoutX + spinoutSpeedVariation);
+                spinoutY = Random.Range(spinoutY - spinoutSpeedVariation, spinoutY + spinoutSpeedVariation);
+
+                spinoutX *= Random.Range(0, 2) == 0 ? 1 : -1;
+                spinoutY *= Random.Range(0, 2) == 0 ? 1 : -1;
+
+                timeToDie = .25f;
+                deathTimer = 0;
+            }
+
+            else
+            {
+                gameObject.SetActive(false);
+                transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                enabled = false;
+                velocity = Vector3.zero;
+            }
         }
     }
 
@@ -196,22 +233,26 @@ public class Movement : MonoBehaviour {
 
         if (deathTimer >= timeToDie)
         {
-            Destroy(gameObject);
+            dead = true;
+            gameObject.SetActive(false);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
             return;
         }
+
+        GetComponent<BoxCollider2D>().enabled = false;
 
         // Change death type depending on the minigame
         switch(Gamemanager.currentMinigame)
         {
             case MiniGame.Lasers:
                 // Increase scale of the player
-                transform.localScale *= (1.3f * Time.deltaTime);
+                transform.localScale *= (1.2f);
 
                 // Increase rotation
                 angle += spinoutAngle * Time.deltaTime;
 
                 // Increase offset from parent
-                transform.GetChild(0).localPosition += new Vector3(.3f, .3f) * Time.deltaTime;
+                transform.GetChild(0).localPosition += new Vector3(spinoutX, spinoutY) * Time.deltaTime;
                 break;
 
             default:

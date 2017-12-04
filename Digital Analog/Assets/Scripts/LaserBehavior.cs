@@ -8,7 +8,7 @@ using UnityEngine;
 public class LaserBehavior : MonoBehaviour {
 
     public Vector3 velocity;
-    private LaserMiniGame minigameManager;
+    public LaserMiniGame minigameManager;
 
 	// Use this for initialization
 	void Start ()
@@ -39,10 +39,12 @@ public class LaserBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Kill the player, remove this from the active projectiles and destroy itself
-        if (other.gameObject.tag.Contains("Player"))
+        if (other.gameObject.tag.Contains("Player") && !other.GetComponent<Movement>().IsDying)
         {
-            other.gameObject.GetComponent<Movement>().KillPlayer();
+            //other.gameObject.GetComponent<Movement>().KillPlayer();
+            //Debug.Log(minigameManager.currentPlayers);
             minigameManager.KillPlayer(minigameManager.currentPlayers.IndexOf(other.gameObject));
+            //other.enabled = false;
         }
     }
 }

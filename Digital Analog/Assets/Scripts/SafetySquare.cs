@@ -116,7 +116,9 @@ public class SafetySquare : MonoBehaviour {
         if (flashesCompleted < numFlashes)
         {
             // Set the opacity of the sprite as a function of time
-            alpha = (-Mathf.Abs(((4 * maxOpacity * timer) - (timePerFlash * timePerFlash)) / (2 * timePerFlash)) + maxOpacity) / 255f;
+            alpha = (-Mathf.Abs(((2 * maxOpacity * timer / timePerFlash) - timePerFlash / 2)) + maxOpacity) / 255f;
+            //Debug.Log(alpha);
+            //alpha = (-Mathf.Abs(timer * maxOpacity - timePerFlash) + timePerFlash) / 255f;
 
             spriteRenderer.color = new Color(
                 spriteRenderer.color.r,

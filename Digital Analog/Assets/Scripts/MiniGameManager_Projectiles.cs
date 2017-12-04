@@ -144,10 +144,14 @@ public class MiniGameManager_Projectiles : Gamemanager {
 
         arena.GetComponent<SpriteRenderer>().enabled = true;
 
-        for (int i = 0; i < ProjectileSpawning.activeProjectiles.Count; i++)
+        if (ProjectileSpawning.activeProjectiles != null)
         {
-            Destroy(ProjectileSpawning.activeProjectiles[ProjectileSpawning.activeProjectiles.Count - 1]);
-            ProjectileSpawning.activeProjectiles.RemoveAt(ProjectileSpawning.activeProjectiles.Count - 1);
+            for (int i = 0; i < ProjectileSpawning.activeProjectiles.Count; i++)
+            {
+                Destroy(ProjectileSpawning.activeProjectiles[ProjectileSpawning.activeProjectiles.Count - 1]);
+                ProjectileSpawning.activeProjectiles.RemoveAt(ProjectileSpawning.activeProjectiles.Count - 1);
+                i--;
+            }
         }
     }
 

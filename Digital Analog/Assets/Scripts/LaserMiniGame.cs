@@ -13,7 +13,7 @@ public class LaserMiniGame : Gamemanager {
     // Instances
     //bool play = false;
     //bool gameOver = false;
-    LaserSpawner laserManager;
+    private LaserSpawner laserManager;
 
     protected override void Start()
     {
@@ -21,7 +21,6 @@ public class LaserMiniGame : Gamemanager {
         laserManager = GetComponent<LaserSpawner>();
         laserManager.enabled = false;
     }
-
 
     // Update is called once per frame
     void Update()
