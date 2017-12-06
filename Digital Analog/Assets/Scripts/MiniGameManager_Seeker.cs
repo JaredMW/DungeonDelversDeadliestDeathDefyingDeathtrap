@@ -59,7 +59,7 @@ public class MiniGameManager_Seeker : Gamemanager
             for (int i = 0; i < currentPlayers.Count; i++)
             {
                 currentPlayers[i].SetActive(true);
-                currentPlayers[i].GetComponent<Movement>().enabled = true;
+                currentPlayers[i].GetComponent<Movement_Seeker>().enabled = true;
                 currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
             }
         }
@@ -103,7 +103,11 @@ public class MiniGameManager_Seeker : Gamemanager
     public override void StartMinigame()
     {
         base.StartMinigame();
-        currentMinigame = MiniGame.Seeker;
+
+        play = true;
+        gameOver = false;
+
+
     }
 
     /// <summary>
@@ -112,6 +116,10 @@ public class MiniGameManager_Seeker : Gamemanager
     protected override void EndMinigame()
     {
         base.EndMinigame();
+
+        play = false;
+        gameOver = true;
+        GetComponent<Timer>().iscounting = false;
     }
 }
 
