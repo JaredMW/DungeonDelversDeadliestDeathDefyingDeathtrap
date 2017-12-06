@@ -41,13 +41,22 @@ public class Gamemanager : MonoBehaviour {
 
     // Use this for initialization
     protected virtual void Start () {
+        //Debug.Log("Movement DISABLED");
         startScreen.gameObject.SetActive(true);
         objectiveScreen.gameObject.SetActive(false);
         startbutton.interactable = false;
         for (int i = 0; i < players.Count; i++)
         {
             players[i].SetActive(false);
-            players[i].GetComponent<Movement>().enabled = false;
+            if (players[i].GetComponent<Movement>() != null)
+            {
+                players[i].GetComponent<Movement>().enabled = false;
+            }
+            if (players[i].GetComponent<Movement_Seeker>() != null)
+            {
+                Debug.Log("Movement DISABLED");
+                players[i].GetComponent<Movement_Seeker>().enabled = false;
+            }
             players[i].GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
 

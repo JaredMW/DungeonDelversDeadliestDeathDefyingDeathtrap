@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\ProjectileSpawning.cs" />
     <Compile Include="Assets\Scripts\SafetySquare.cs" />
     <Compile Include="Assets\Scripts\ScreenManager.cs" />
+    <Compile Include="Assets\Scripts\SeekerMovement_Seeker.cs" />
     <Compile Include="Assets\Scripts\SpriteInfo.cs" />
     <Compile Include="Assets\Scripts\StartButton.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />

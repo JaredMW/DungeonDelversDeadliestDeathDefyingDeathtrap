@@ -65,22 +65,22 @@ public class Movement_Seeker : MonoBehaviour
             }
             if (transform.position.x <= -15.1)
             {
-                velocity.x = 0;
+                position.x = -15f;
             }
 
             if (transform.position.y <= -18.68)
             {
-                velocity.y = 0;
+                position.y = -18.58f;
             }
 
             if (transform.position.x >= 15.15)
             {
-                velocity.x = 0;
+                position.x = 15.05f;
             }
 
             if (transform.position.y >= -3.3)
             {
-                velocity.y = 0;
+                position.y = -3.2f;
             }
 
             // Clamp velocity to the maximum speed
@@ -96,10 +96,6 @@ public class Movement_Seeker : MonoBehaviour
                     inputVelocity.y += speedIncrement;
                 }
             }
-            if (transform.position.y >= -3.3)
-            {
-                velocity.y = 0;
-            }
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
@@ -108,10 +104,6 @@ public class Movement_Seeker : MonoBehaviour
                     inputVelocity.y -= speedIncrement;
                 }
             }
-            if (transform.position.y <= -18.68)
-            {
-                velocity.y = 0;
-            }
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
@@ -119,10 +111,6 @@ public class Movement_Seeker : MonoBehaviour
                 {
                     inputVelocity.x += speedIncrement;
                 }
-            }
-            if (transform.position.x >= 15.15)
-            {
-                velocity.x = 0;
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))
@@ -134,9 +122,23 @@ public class Movement_Seeker : MonoBehaviour
             }
             if (transform.position.x <= -15.1)
             {
-                velocity.x = 0;
+                position.x = -15;
             }
 
+            if (transform.position.y <= -18.68)
+            {
+                position.y = -18.58f;
+            }
+
+            if (transform.position.x >= 15.15)
+            {
+                position.x = 15.05f;
+            }
+
+            if (transform.position.y >= -3.3)
+            {
+                position.y = -3.2f;
+            }
         }
 
         else if (gameObject.tag == "Player3")
@@ -158,22 +160,22 @@ public class Movement_Seeker : MonoBehaviour
 
             if (transform.position.x <= -15.1)
             {
-                velocity.x = 0;
+                position.x = -15f;
             }
 
             if (transform.position.y <= -18.68)
             {
-                velocity.y = 0;
+                position.y = -18.58f;
             }
 
             if (transform.position.x >= 15.15)
             {
-                velocity.x = 0;
+                position.x = 15.05f;
             }
 
             if (transform.position.y >= -3.3)
             {
-                velocity.y = 0;
+                position.y = -3.4f;
             }
         }
 
@@ -196,22 +198,22 @@ public class Movement_Seeker : MonoBehaviour
 
             if (transform.position.x <= -15.1)
             {
-                velocity.x = 0;
+                position.x = -15f;
             }
 
             if (transform.position.y <= -18.68)
             {
-                velocity.y = 0;
+                position.y = -18.58f;
             }
 
             if (transform.position.x >= 15.15)
             {
-                velocity.x = 0;
+                position.x = 15.05f;
             }
 
             if (transform.position.y >= -3.3)
             {
-                velocity.y = 0;
+                position.y = -3.4f;
             }
         }
 

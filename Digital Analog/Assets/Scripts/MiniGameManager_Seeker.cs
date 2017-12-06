@@ -16,6 +16,7 @@ public class MiniGameManager_Seeker : Gamemanager
     bool gameOver = false;
     public float arenaShrinkRate = .9987f;
     float radius = 7.15f;
+    public GameObject seeker;
 
     public float Radius
     {
@@ -25,7 +26,9 @@ public class MiniGameManager_Seeker : Gamemanager
 
     protected override void Start()
     {
+        //Debug.Log("Movement DISABLED");
         base.Start();
+        seeker.GetComponent<SeekerMovement_Seeker>().enabled = false;
     }
 
 
@@ -55,11 +58,15 @@ public class MiniGameManager_Seeker : Gamemanager
         {
             //instructions.gameObject.SetActive(false);
             objectiveScreen.gameObject.SetActive(false);
+            seeker.GetComponent<SeekerMovement_Seeker>().enabled = true;
 
             for (int i = 0; i < currentPlayers.Count; i++)
             {
                 currentPlayers[i].SetActive(true);
-                currentPlayers[i].GetComponent<Movement_Seeker>().enabled = true;
+                if (currentPlayers[i].GetComponent<Movement_Seeker>())
+                {
+                    currentPlayers[i].GetComponent<Movement_Seeker>().enabled = true;
+                }
                 currentPlayers[i].GetComponentInChildren<SpriteRenderer>().enabled = true;
             }
         }
