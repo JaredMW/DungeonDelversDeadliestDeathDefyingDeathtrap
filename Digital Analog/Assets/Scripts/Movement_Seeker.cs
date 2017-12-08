@@ -14,11 +14,13 @@ public class Movement_Seeker : MonoBehaviour
     public float angle;
     public float turnspeed;
     public bool useSlowdown = true;
+    public bool marked;
 
     void Start()
     {
         transform.position = position;
         angle = transform.rotation.z;
+        //marked = false;
     }
 
 
@@ -254,6 +256,23 @@ public class Movement_Seeker : MonoBehaviour
     {
         if (coll.gameObject.tag.Contains("Player"))
         {
+            if (marked == true){
+                marked = false;
+                Behaviour h = (Behaviour)GetComponent("Halo");
+                h.enabled = false;
+                coll.gameObject.GetComponent<Movement_Seeker>().marked = true;
+                h = (Behaviour)coll.gameObject.GetComponent("Halo");
+                h.enabled = true;
+                GameObject.FindGameObjectWithTag("Seeker").GetComponent<SeekerMovement_Seeker>().target = coll.gameObject;
+            }
+            if (coll.gameObject.GetComponent<Movement_Seeker>().marked == true){
+                coll.gameObject.GetComponent<Movement_Seeker>().marked = false;
+                Behaviour h = (Behaviour)coll.gameObject.GetComponent("Halo");
+                h.enabled = false;
+                gameObject.GetComponent<Movement_Seeker>().marked = true;
+                h = (Behaviour)gameObject.GetComponent("Halo");
+                h.enabled = true;
+            } 
             coll.gameObject.GetComponent<Movement_Seeker>().position += velocity * Time.deltaTime * 5;
             velocity *= -1;
             position += velocity * Time.deltaTime * 5;

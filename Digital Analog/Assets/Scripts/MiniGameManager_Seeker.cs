@@ -92,6 +92,8 @@ public class MiniGameManager_Seeker : Gamemanager
             // End the minigame when 1 or less currentplayers are present
             if (currentPlayers.Count <= 1 && play)
             {
+                seeker.gameObject.GetComponent<SeekerMovement_Seeker>().enabled = false;
+                seeker.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 EndMinigame();
                 GameOverCountdown();
             }
@@ -112,7 +114,11 @@ public class MiniGameManager_Seeker : Gamemanager
 
         play = true;
         gameOver = false;
-
+        int rand = Random.Range(0,currentPlayers.Count);
+        seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target = currentPlayers[rand];
+        currentPlayers[rand].GetComponent<Movement_Seeker>().marked = true;
+        Behaviour h = (Behaviour)currentPlayers[rand].GetComponent("Halo");
+        h.enabled = true;
 
     }
 
