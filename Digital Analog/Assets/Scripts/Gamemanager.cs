@@ -119,7 +119,10 @@ public class Gamemanager : MonoBehaviour {
         {
             for (int i = 0; i < players.Count; i++)
             {
-                players[i].GetComponent<Movement>().canMove = false;
+                if (players[i].GetComponent<Movement>())
+                {
+                    players[i].GetComponent<Movement>().canMove = false;
+                }
                 //players[i].GetComponent<Movement>().velocity = Vector3.zero;
             }
         }
