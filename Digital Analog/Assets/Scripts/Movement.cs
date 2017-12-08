@@ -5,6 +5,7 @@ public class Movement : MonoBehaviour {
     public Vector3 position;
     public Vector3 velocity = new Vector3(0.0f, 0.0f,0.0f);
     private Vector3 inputVelocity = Vector3.zero;
+    private Vector3 forward;
 
     public float speed = 0.0f;
     public float speedIncrement = .75f;
@@ -134,6 +135,13 @@ public class Movement : MonoBehaviour {
                 inputVelocity.y += y;
             }
 
+            if (inputVelocity.sqrMagnitude != 0)
+            {
+                forward = inputVelocity.normalized;
+                Debug.Log(forward);
+                transform.up = forward;
+            }
+
             // Add input velocity to total velocity
             velocity += inputVelocity;
 
@@ -160,7 +168,6 @@ public class Movement : MonoBehaviour {
         }
 
         // Final translation of movement
-        transform.rotation = Quaternion.Euler(0, 0, angle);
         position += velocity * Time.deltaTime;
         transform.position = position;
 
@@ -269,6 +276,7 @@ public class Movement : MonoBehaviour {
 
                 // Increase rotation
                 angle += spinoutAngle * Time.deltaTime;
+                transform.rotation = Quaternion.Euler(0, 0, angle);
 
                 // Increase offset from parent
                 transform.GetChild(0).localPosition += new Vector3(spinoutX, spinoutY) * Time.deltaTime;
