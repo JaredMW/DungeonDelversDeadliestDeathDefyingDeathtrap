@@ -16,7 +16,6 @@ public class MiniGameManager_Seeker : Gamemanager
     bool gameOver = false;
     public float arenaShrinkRate = .9987f;
     float radius = 7.15f;
-    public GameObject seeker;
 
     public float Radius
     {

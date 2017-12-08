@@ -39,6 +39,8 @@ public class Gamemanager : MonoBehaviour {
     protected bool play = false;
     protected bool gameOver = false;
 
+    public GameObject seeker;
+
     // Use this for initialization
     protected virtual void Start () {
         //Debug.Log("Movement DISABLED");
