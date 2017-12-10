@@ -6,9 +6,10 @@ public class SeekerMovement_Seeker : MonoBehaviour {
 
     public GameObject target;
     public Vector3 seek;
+    public Sprite blood;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -34,6 +35,7 @@ public class SeekerMovement_Seeker : MonoBehaviour {
             seek.y = -0.05f;
         }
         transform.position += seek;
+        transform.Rotate(Vector3.forward * 730 * Time.deltaTime);
 	}
 
     void OnCollisionEnter2D(Collision2D coll) { 
@@ -41,7 +43,8 @@ public class SeekerMovement_Seeker : MonoBehaviour {
             GameObject.FindGameObjectWithTag("Saw").GetComponent<MiniGameManager_Seeker>().currentPlayers.Remove(coll.gameObject);
             coll.gameObject.GetComponent<Movement_Seeker>().enabled = false;
             coll.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            coll.gameObject.SetActive(false);
+            coll.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = blood;
+            //coll.gameObject.SetActive(false);
         } 
     }
 }

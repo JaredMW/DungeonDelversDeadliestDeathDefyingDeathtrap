@@ -34,6 +34,10 @@ public class MiniGameManager_Seeker : Gamemanager
     // Update is called once per frame
     void Update()
     {
+        if(seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target != null && seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target.GetComponent<Movement_Seeker>().enabled == false)
+        {
+            getTarget();
+        }
         // After some players are selected to play, you can now select to start
         if (!play && !gameOver && playercountstart >= 1)
         {
@@ -114,12 +118,17 @@ public class MiniGameManager_Seeker : Gamemanager
 
         play = true;
         gameOver = false;
-        int rand = Random.Range(0,currentPlayers.Count);
+        getTarget();
+
+    }
+
+    public void getTarget()
+    {
+        int rand = Random.Range(0, currentPlayers.Count);
         seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target = currentPlayers[rand];
         currentPlayers[rand].GetComponent<Movement_Seeker>().marked = true;
         Behaviour h = (Behaviour)currentPlayers[rand].GetComponent("Halo");
         h.enabled = true;
-
     }
 
     /// <summary>

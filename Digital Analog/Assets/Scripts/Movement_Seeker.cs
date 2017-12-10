@@ -6,6 +6,7 @@ public class Movement_Seeker : MonoBehaviour
     public Vector3 position;
     public Vector3 velocity = new Vector3(0.0f, 0.0f, 0.0f);
     private Vector3 inputVelocity = Vector3.zero;
+    private Vector3 forward;
 
     public float speed = 0.0f;
     public float speedIncrement = .75f;
@@ -15,13 +16,15 @@ public class Movement_Seeker : MonoBehaviour
     public float turnspeed;
     public bool useSlowdown = true;
     public bool marked;
+    public int markedcount;
 
     void Start()
     {
         transform.position = position;
         angle = transform.rotation.z;
-        //marked = false;
-    }
+        markedcount = 0;
+    //marked = false;
+}
 
 
     void Update()
@@ -228,6 +231,13 @@ public class Movement_Seeker : MonoBehaviour
             velocity *= slowDown;
         }
 
+        if (inputVelocity.sqrMagnitude != 0)
+        {
+            forward = inputVelocity.normalized;
+            Debug.Log(forward);
+            transform.up = forward;
+        }
+
         // Come to a complete halt
         if (velocity.x < .1 && velocity.x > -.1)
         {
@@ -241,6 +251,10 @@ public class Movement_Seeker : MonoBehaviour
         // Final translation of movement
         position += velocity * Time.deltaTime;
         transform.position = position;
+        if(markedcount > 0)
+        {
+            markedcount--;
+        }
     }
 
     public Vector3 GetDirection()
@@ -256,23 +270,21 @@ public class Movement_Seeker : MonoBehaviour
     {
         if (coll.gameObject.tag.Contains("Player"))
         {
-            if (marked == true){
-                marked = false;
-                Behaviour h = (Behaviour)GetComponent("Halo");
-                h.enabled = false;
-                coll.gameObject.GetComponent<Movement_Seeker>().marked = true;
-                h = (Behaviour)coll.gameObject.GetComponent("Halo");
-                h.enabled = true;
-                GameObject.FindGameObjectWithTag("Seeker").GetComponent<SeekerMovement_Seeker>().target = coll.gameObject;
+            if (markedcount == 0)
+            {
+                if (marked == true)
+                {
+                    coll.gameObject.GetComponent<Movement_Seeker>().markedcount = 60;
+                    Debug.Log("COLLDING");
+                    marked = false;
+                    Behaviour h = (Behaviour)GetComponent("Halo");
+                    h.enabled = false;
+                    coll.gameObject.GetComponent<Movement_Seeker>().marked = true;
+                    h = (Behaviour)coll.gameObject.GetComponent("Halo");
+                    h.enabled = true;
+                    GameObject.FindGameObjectWithTag("Seeker").GetComponent<SeekerMovement_Seeker>().target = coll.gameObject;
+                }
             }
-            if (coll.gameObject.GetComponent<Movement_Seeker>().marked == true){
-                coll.gameObject.GetComponent<Movement_Seeker>().marked = false;
-                Behaviour h = (Behaviour)coll.gameObject.GetComponent("Halo");
-                h.enabled = false;
-                gameObject.GetComponent<Movement_Seeker>().marked = true;
-                h = (Behaviour)gameObject.GetComponent("Halo");
-                h.enabled = true;
-            } 
             coll.gameObject.GetComponent<Movement_Seeker>().position += velocity * Time.deltaTime * 5;
             velocity *= -1;
             position += velocity * Time.deltaTime * 5;
