@@ -7,36 +7,90 @@ public class SeekerMovement_Seeker : MonoBehaviour {
     public GameObject target;
     public Vector3 seek;
     public Sprite blood;
+    public float speed;
+    public int count;
+    public bool single;
+    public float speedX;
+    public float speedY;
 
     // Use this for initialization
     void Start () {
-		
-	}
+        speed = 0.05f;
+
+        speedX = Random.Range(-1f, 1f);
+        speedY = Random.Range(-1f, 1f);
+        while(speedX == 0)
+        {
+            speedX = Random.Range(-1f, 1f);
+        }
+        while (speedY == 0)
+        {
+            speedY = Random.Range(-1f, 1f);
+        }
+        seek.x += speedX;
+        seek.y += speedY;
+        seek.Normalize();
+        seek *= speed;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 tarpos = target.transform.position;
-        Vector3 pos = transform.position;
-        seek = tarpos - pos;
-        if (seek.x > 0.05)
+        count++;
+        if(count > 120)
         {
-            seek.x = 0.05f;
+            speed += 0.03f;
+            count = 0;
         }
-        if (seek.x < -0.05)
+        if (single == false)
         {
-            seek.x = -0.05f;
+            Vector3 tarpos = target.transform.position;
+            Vector3 pos = transform.position;
+            seek = tarpos - pos;
+            if (seek.x > speed)
+            {
+                seek.x = speed;
+            }
+            if (seek.x < -speed)
+            {
+                seek.x = -speed;
+            }
+            if (seek.y > speed)
+            {
+                seek.y = speed;
+            }
+            if (seek.y < -speed)
+            {
+                seek.y = -speed;
+            }
+            transform.position += seek;
         }
-        if (seek.y > 0.05)
+        else
         {
-            seek.y = 0.05f;
+            if (transform.position.x <= -15.1)
+            {
+                seek.x = -seek.x;
+            }
+
+            if (transform.position.y <= -18.68)
+            {
+                seek.y = -seek.y;
+            }
+
+            if (transform.position.x >= 15.15)
+            {
+                seek.x = -seek.x;
+            }
+
+            if (transform.position.y >= -3.3)
+            {
+                seek.y = -seek.y;
+            }
+            seek.Normalize();
+            seek = seek * (speed*4);
+            transform.position += seek;
         }
-        if (seek.y < -0.05)
-        {
-            seek.y = -0.05f;
-        }
-        transform.position += seek;
         transform.Rotate(Vector3.forward * 730 * Time.deltaTime);
-	}
+    }
 
     void OnCollisionEnter2D(Collision2D coll) { 
         if (coll.gameObject.tag.Contains("Player")) { 

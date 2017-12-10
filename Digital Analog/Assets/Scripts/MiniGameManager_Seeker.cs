@@ -77,6 +77,7 @@ public class MiniGameManager_Seeker : Gamemanager
         // If playing singleplayer...
         if (playercountstart <= 1)
         {
+            seeker.gameObject.GetComponent<SeekerMovement_Seeker>().single = true;
             // If everyone is dead, end the minigame
             if (currentPlayers.Count < 1 && play)
             {
@@ -93,6 +94,7 @@ public class MiniGameManager_Seeker : Gamemanager
         // If playing multiplayer...
         else if (playercountstart > 1)
         {
+            seeker.gameObject.GetComponent<SeekerMovement_Seeker>().single = false;
             // End the minigame when 1 or less currentplayers are present
             if (currentPlayers.Count <= 1 && play)
             {
@@ -118,17 +120,19 @@ public class MiniGameManager_Seeker : Gamemanager
 
         play = true;
         gameOver = false;
-        getTarget();
-
+        getTarget();     
     }
 
     public void getTarget()
     {
-        int rand = Random.Range(0, currentPlayers.Count);
-        seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target = currentPlayers[rand];
-        currentPlayers[rand].GetComponent<Movement_Seeker>().marked = true;
-        Behaviour h = (Behaviour)currentPlayers[rand].GetComponent("Halo");
-        h.enabled = true;
+        if (currentPlayers.Count > 0)
+        {
+            int rand = Random.Range(0, currentPlayers.Count);
+            seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target = currentPlayers[rand];
+            currentPlayers[rand].GetComponent<Movement_Seeker>().marked = true;
+            Behaviour h = (Behaviour)currentPlayers[rand].GetComponent("Halo");
+            h.enabled = true;
+        }
     }
 
     /// <summary>
