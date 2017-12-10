@@ -16,7 +16,7 @@ public class SeekerMovement_Seeker : MonoBehaviour {
     // Use this for initialization
     void Start () {
         speed = 0.05f;
-
+        
         speedX = Random.Range(-1f, 1f);
         speedY = Random.Range(-1f, 1f);
         while(speedX == 0)
