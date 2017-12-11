@@ -277,11 +277,11 @@ public class Movement_Seeker : MonoBehaviour
                     coll.gameObject.GetComponent<Movement_Seeker>().markedcount = 60;
                     Debug.Log("COLLDING");
                     marked = false;
-                    Behaviour h = (Behaviour)GetComponent("Halo");
-                    h.enabled = false;
+                    /*Behaviour h = (Behaviour)GetComponent("Halo");
+                    h.enabled = false;*/
                     coll.gameObject.GetComponent<Movement_Seeker>().marked = true;
-                    h = (Behaviour)coll.gameObject.GetComponent("Halo");
-                    h.enabled = true;
+                    /*h = (Behaviour)coll.gameObject.GetComponent("Halo");
+                    h.enabled = true;*/
                     GameObject.FindGameObjectWithTag("Seeker").GetComponent<SeekerMovement_Seeker>().target = coll.gameObject;
                 }
             }

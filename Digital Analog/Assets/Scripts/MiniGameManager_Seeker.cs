@@ -130,8 +130,8 @@ public class MiniGameManager_Seeker : Gamemanager
             int rand = Random.Range(0, currentPlayers.Count);
             seeker.gameObject.GetComponent<SeekerMovement_Seeker>().target = currentPlayers[rand];
             currentPlayers[rand].GetComponent<Movement_Seeker>().marked = true;
-            Behaviour h = (Behaviour)currentPlayers[rand].GetComponent("Halo");
-            h.enabled = true;
+            /*Behaviour h = (Behaviour)currentPlayers[rand].GetComponent("Halo");
+            h.enabled = true;*/
         }
     }
 
